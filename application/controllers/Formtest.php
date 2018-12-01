@@ -2,51 +2,89 @@
 
 class Formtest extends CI_Controller
 {
-    public function submit()
-    {
-        $this->load->helper('url');
-        $this->load->model('Participant');
-        if ($this->Participant->add()) {
-            echo "TRUE";
-        } else {
-            echo "false";
-        }
-    }
     public function index()
     {
         $this->load->helper(array('form', 'url'));
 
+        // #TODO Populate $batches from test.batchrepresentative.batch
         $batches = [2008, 2009, 2010];
-        $data = ["Batch_Nb"=>$batches];
 
+        // $form_maker_data -> Data required for initializing view
+        $form_maker_data = ["Batch_Nb" => $batches];
+
+        // Form Validation Rules:
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<p class="errormsg">', '</p>');
         $this->form_validation->set_rules('Batch', 'Batch Year', 'required');
         $this->form_validation->set_rules('first_name', 'First Name', 'required');
         $this->form_validation->set_rules('last_name', 'Last Name', 'required');
+        // #TODO add validation for photo field
+        $this->form_validation->set_rules('father', 'Father\'s  Name', 'required');
+        $this->form_validation->set_rules('mother', 'Mother\'s  Name', 'required');
+        $this->form_validation->set_rules('gender', 'Gender', 'required|callback_gender_check');
+        $this->form_validation->set_rules('mstat', 'Marital Status', 'required|callback_marital_check');
+        $this->form_validation->set_rules('occupation', 'Occupation', 'required');
+        $this->form_validation->set_rules('designation', 'Designation', 'required');
+        $this->form_validation->set_rules('contact', 'contact', 'required|callback_contact_check');
 
+        // Form Validation
         if ($this->form_validation->run() == false) {
-            $this->load->view('formtest', $data);
+            $this->load->view('formtest', $form_maker_data);
         } else {
-            echo "Success";
+            // $data_from_form -> user data to be inserted in test.userinfo
+            $data_from_form = [
+                'Batch' => $this->input->post('Batch'),
+                'first_name' => $this->input->post('first_name'),
+                'last_name' => $this->input->post('last_name'),
+                // #TODO add photo field
+                'father' => $this->input->post('father'),
+                'mother' => $this->input->post('mother'),
+                'gender' => $this->input->post('gender'),
+                'mstat' => $this->input->post('mstat'),
+                'occupation' => $this->input->post('occupation'),
+                'designation' => $this->input->post('designation'),
+                'contact' => $this->input->post('contact'),
+            ];
+
+            $data = ['data' => $data_from_form];
+
+            // #TODO call data insertion function here
+
+            // #TODO on insertion success load payment instruction view
+            $this->load->view('Formsuccess', $data);
+
+            // #TODO on insertion failure load register view
+
         }
     }
-    public function index2()
+    public function contact_check($number)
     {
+        // regex for contact number: /^(\+88)?(01)([5-9])([0-9]{8})$/
+        // for regex help: https://regexr.com/
 
-        $this->load->helper(array('form', 'url'));
-        $this->load->library('form_validation');
-        $this->form_validation->set_rules('first_name', 'First Name', 'required');
-        // $this->form_validation->set_rules('password', 'Password', 'required',
-        //     array('required' => 'You must provide a %s.')
-        // );
-        // $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|matches[password]');
-        // $this->form_validation->set_rules('email', 'Email', 'required');
-
-        if ($this->form_validation->run() == false) {
-            $this->load->view('formtest');
+        if (preg_match('/^(\+88)?(01)([5-9])([0-9]{8})$/', $number)) {
+            return true;
         } else {
-            $this->load->view('register');
+            $this->form_validation->set_message('contact_check', 'Enter a Valid Number');
+            return false;
+        }
+    }
+    public function marital_check($str)
+    {
+        if ($str == 'married' || $str == 'unmarried') {
+            return true;
+        } else {
+            $this->form_validation->set_message('marital_check', 'Invalid Marital Status');
+            return false;
+        }
+    }
+    public function gender_check($str)
+    {
+        if ($str == 'male' || $str == 'female') {
+            return true;
+        } else {
+            $this->form_validation->set_message('gender_check', 'Invalid Gender');
+            return false;
         }
     }
 }

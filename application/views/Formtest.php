@@ -59,7 +59,7 @@
             </h2>
           </div>
 
-          <?php echo form_open('formtest/index'); ?>
+          <?php echo form_open_multipart('formtest/index'); ?>
             <div class="card-body">
               <div style="margin:20px 0px">
                 <h2 class="title" style="color:black">Personal Info</h2>
@@ -129,7 +129,8 @@
                 <div class="name">Father's Name:</div>
                 <div class="value">
                   <div class="input-group">
-                    <input class="input--style-5" type="text" name="company" />
+                    <?php echo form_error('father'); ?>
+                    <input class="input--style-5" type="text" name="father" value="<?php echo set_value('father')?>"/>
                   </div>
                 </div>
               </div>
@@ -137,7 +138,8 @@
                 <div class="name">Mother's Name:</div>
                 <div class="value">
                   <div class="input-group">
-                    <input class="input--style-5" type="text" name="mother" />
+                  <?php echo form_error('mother'); ?>  
+                  <input class="input--style-5" type="text" name="mother" value="<?php  echo set_value('mother')?>"/>
                   </div>
                 </div>
               </div>
@@ -147,13 +149,14 @@
                 </div>
 
                 <div class="p-t-15">
+                  <?php echo form_error('gender');?>
                   <label class="radio-container m-r-55"
                     >Male
-                    <input type="radio" checked="checked" name="gender" />
+                    <input type="radio" <?php echo (set_value('gender')=='male')?'checked="checked"':'' ?> name="gender" value="male"/>
                     <span class="checkmark"></span>
                   </label>
                   <label class="radio-container"
-                    >Female <input type="radio" name="gender" />
+                    >Female <input type="radio" <?php echo (set_value('gender')=='female')?'checked="checked"':'' ?>name="gender" value="female" />
                     <span class="checkmark"></span>
                   </label>
                 </div>
@@ -164,13 +167,15 @@
                 </div>
 
                 <div class="p-t-15">
+                  <?php echo form_error('mstat');?>
                   <label class="radio-container m-r-55"
                     >Married
-                    <input type="radio" checked="checked" name="mstat" />
+                    <input type="radio" <?php echo (set_value('mstat')=='married')?'checked="checked"':'' ?> name="mstat" value="married"/>
                     <span class="checkmark"></span>
                   </label>
                   <label class="radio-container"
-                    >Unmarried <input type="radio" name="mstat" />
+                    >Unmarried 
+                    <input type="radio" <?php echo (set_value('mstat')=='unmarried')?'checked="checked"':'' ?> name="mstat" value="unmarried"/>
                     <span class="checkmark"></span>
                   </label>
                 </div>
@@ -179,10 +184,12 @@
                 <div class="name">Occupation</div>
                 <div class="value">
                   <div class="input-group">
+                    <?php echo form_error('occupation'); ?>
                     <input
                       class="input--style-5"
                       type="text"
                       name="occupation"
+                      value="<?php echo set_value('occupation')?>"
                     />
                   </div>
                 </div>
@@ -191,7 +198,8 @@
                 <div class="name">Designation</div>
                 <div class="value">
                   <div class="input-group">
-                    <input class="input--style-5" type="text" name="design" />
+                    <?php echo form_error('designation'); ?>
+                    <input class="input--style-5" type="text" name="designation" value="<?php  echo set_value('designation')?>"/>
                   </div>
                 </div>
               </div>
@@ -199,10 +207,12 @@
                 <div class="name">Contact Number:</div>
                 <div class="value">
                   <div class="input-group">
+                    <?php echo form_error('contact'); ?>
                     <input
                       class="input--style-5"
-                      type="number"
+                      type="text"
                       name="contact"
+                      value="<?php  echo set_value('contact')?>"
                     />
                   </div>
                 </div>
@@ -280,7 +290,7 @@
                 Register
               </button>
             </div>
-            <?php echo form_close(); ?>
+          <?php echo form_close(); ?>
         </div>
       </div>
     </div>
