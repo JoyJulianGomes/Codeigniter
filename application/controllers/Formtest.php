@@ -15,8 +15,21 @@ class Formtest extends CI_Controller
     public function index()
     {
         $this->load->helper(array('form', 'url'));
+
+        $batches = [2008, 2009, 2010];
+        $data = ["Batch_Nb"=>$batches];
+
         $this->load->library('form_validation');
-        $this->load->view('formtest');
+        $this->form_validation->set_error_delimiters('<p class="errormsg">', '</p>');
+        $this->form_validation->set_rules('Batch', 'Batch Year', 'required');
+        $this->form_validation->set_rules('first_name', 'First Name', 'required');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('formtest', $data);
+        } else {
+            echo "Success";
+        }
     }
     public function index2()
     {

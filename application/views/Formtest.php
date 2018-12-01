@@ -59,7 +59,7 @@
             </h2>
           </div>
 
-          <?php echo form_open('formtest/index2'); ?>
+          <?php echo form_open('formtest/index'); ?>
             <div class="card-body">
               <div style="margin:20px 0px">
                 <h2 class="title" style="color:black">Personal Info</h2>
@@ -69,8 +69,12 @@
                 <div class="value">
                   <div class="input-group">
                     <div class="rs-select2 js-select-simple select--no-search">
-                      <select name="Batch">
-                        <option>Choose Option</option>
+                    <?php echo form_error('Batch'); ?>  
+                    <select name="Batch">
+                        <option <?php echo ($given = set_value('Batch'))?'value='.'"'.$given.'"':'value="" disable selected'; ?>> <?php echo ($given = set_value('Batch'))?$given:"Choose Value"?></option>
+                        <?php foreach ($Batch_Nb as $item):?>
+                            <?php echo '<option value="'.$item.'">'.$item.'</option>';?>
+                        <?php endforeach;?>
                       </select>
                       <div class="select-dropdown"></div>
                     </div>
@@ -95,10 +99,12 @@
                     </div>
                     <div class="col-2">
                       <div class="input-group-desc">
+                      <?php echo form_error('last_name'); ?>
                         <input
                           class="input--style-5"
                           type="text"
                           name="last_name"
+                          value="<?php echo set_value('last_name'); ?>"
                         />
                         <label class="label--desc">last name</label>
                       </div>
