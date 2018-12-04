@@ -12,7 +12,7 @@
     <meta name="keywords" content="Colorlib Templates" />
 
     <!-- Title Page -->
-    <title>Au Register Forms by Colorlib</title>
+    <title>Registration</title>
 
     <!-- Icons font CSS -->
     <link
@@ -72,8 +72,8 @@
                     <?php echo form_error('Batch'); ?>  
                     <select name="batch">
                         <option <?php echo ($given = set_value('batch'))?'value='.'"'.$given.'"':'value="" disable selected'; ?>> <?php echo ($given = set_value('batch'))?$given:"Choose Value"?></option>
-                        <?php foreach ($Batch_Nb as $item):?>
-                            <?php echo '<option value="'.$item.'">'.$item.'</option>';?>
+                        <?php foreach ($Batch_Nb as $batch):?>
+                        <?php echo '<option value="'.$batch->batch.'">'.$batch->batch.'</option>';?>
                         <?php endforeach;?>
                       </select>
                       <div class="select-dropdown"></div>

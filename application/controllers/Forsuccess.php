@@ -16,14 +16,14 @@ class Formtest extends CI_Controller
     {
         $this->load->helper(array('form', 'url'));
         $this->load->library('upload', $this->get_photo_config());
-        $this->load->model("Participant");
-        $this->load->model("BkashModel");
-    
-        $this->data['batches'] = $this->Participant->getBatch();
+        $this->load->model('Participant');
+
+        // #TODO Populate $batches from test.batchrepresentative.batch
+        $batches = [2008, 2009, 2010, 2011, 2012];
 
         // $form_maker_data -> Data required for initializing view
-        $form_maker_data["Batch_Nb"] = $this->data['batches'];
-        $form_maker_data["guest_option"]= ['Spouse', 'Child'];
+        $form_maker_data["Batch_Nb"] = $batches;
+        $form_maker_data["guest_option"] = ['Spouse', 'Child'];
 
         // Form Validation Rules:
         $this->load->library('form_validation');
@@ -65,12 +65,10 @@ class Formtest extends CI_Controller
             ];
 
             // #TODO call data insertion function here
-            $success = $this->Participant->add_participant($data_from_form);
-            $success['bkash'] = $this->BkashModel->get_bkash_no("valid");
-
+            $success['reg_id'] = $this->Participant->add_participant($data_from_form);
 
             // #TODO on insertion success load payment instruction view
-            $this->load->view('Instructionpage', $success);
+            $this->load->view('Formsuccess', $success);
 
             // #TODO on insertion failure load register view
         }

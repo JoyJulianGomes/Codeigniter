@@ -24,12 +24,20 @@ class Participant extends CI_Model
     private function clean_guest_info($guest_list)
     {
         $new_guest = [];
+        $spouse_count = 0;
+        $child_count = 0;
         foreach ($guest_list as $guest) {
             if (!empty(($guest['relation']))) {
+                if($guest['relation'] == 'Spouse'){
+                    $spouse_count++;
+                } elseif($guest['relation'] == 'Child'){
+                    $child_count++;
+                }
                 array_push($new_guest, $guest);
             }
         }
-        return $new_guest;
+        $data =['guests' => $new_guest, 'spouse_count'=>$spouse_count, 'child_count' => $child_count]; 
+        return $data;
     }
 
     public function add_participant($data = null)
@@ -37,10 +45,8 @@ class Participant extends CI_Model
         date_default_timezone_set('Asia/Dhaka');
         $date = date("Y-m-d H:i:s");
 
-        $guest_list = $this->clean_guest_info($data['guest']);
-
-        // print_r($data);
-        // print_r($guest_list);
+        $guest_info = $this->clean_guest_info($data['guest']);
+        $guest_list = $guest_info['guests'];
 
         $user_data = [
             'batch' => $data['batch'],
@@ -53,11 +59,12 @@ class Participant extends CI_Model
             'occupation' => $data['occupation'],
             'designation' => $data['designation'],
             'contact' => $data['contact'],
+            'spouse_count' => $guest_info['spouse_count'],
+            'child_count' => $guest_info['child_count'],
             'total_amount' => $this->calculate_fee($guest_list),
             'paid_amount' => 0,
             'date' => $date,
         ];
-        // print_r($user_data);
 
         $this->db->insert('userinfo', $user_data);
         $reg_id = $this->db->insert_id();
@@ -66,6 +73,18 @@ class Participant extends CI_Model
             $guest['reg_id'] = $reg_id;
             $this->db->insert("guests", $guest);
         }
-        return $reg_id;
+        $success = [
+            'reg_id'=>$reg_id, 
+            'spouse_count'=> $guest_info['spouse_count'],
+            'child_count'=> $guest_info['child_count'],
+        ];
+        return $success;
+    }
+    public function getBatch()
+    {
+        $this->db->select("batch");
+        $this->db->from('batchrepresentative');
+        $query = $this->db->get();
+        return $query->result();
     }
 }
