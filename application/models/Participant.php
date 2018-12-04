@@ -16,4 +16,11 @@ class Participant extends CI_Model
 
         return $this->db->insert("guests", $data);
     }
+    public function getBatch()
+    {
+        $this->db->select("batch");
+        $this->db->from('batchrepresentative');
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

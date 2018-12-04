@@ -15,12 +15,21 @@ class Formtest extends CI_Controller
     {
         $this->load->helper(array('form', 'url'));
         $this->load->library('upload', $this->get_photo_config());
+        $this->load->model("Participant");
 
         // #TODO Populate $batches from test.batchrepresentative.batch
-        $batches = [2008, 2009, 2010];
+        // $batches = [2008, 2009, 2010];
+        
+        // foreach($this->Participant->getBatch() as $batch)
+        // {
+        //     echo $batch->batch;
+        // }
+    
+
+        $this->data['batches'] = $this->Participant->getBatch();
 
         // $form_maker_data -> Data required for initializing view
-        $form_maker_data["Batch_Nb"] = $batches;
+        $form_maker_data["Batch_Nb"] = $this->data['batches'];
         $form_maker_data["guest_option"]= ['Spouse', 'Child'];
 
         // Form Validation Rules:
