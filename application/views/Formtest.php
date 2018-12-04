@@ -220,6 +220,7 @@
               </div>
               <div style="margin:20px 0px">
                 <h2 class="title" style="color:black">Participant Names</h2>
+                <p style="text-align:center">Fees: Student = 500 BDT, Spouse = 800 BDT, Child = 300 BDT</p>
               </div>
               <div class="container">
                 <div class="form-row row row-space">
@@ -230,57 +231,101 @@
 
                 <div class="table-form-row table-row table-row-space">
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="text" name="pname-1" />
+                    <input class="table-input--style-5" type="text" name="pname-1" value="<?php echo set_value('pname-1')?>" />
                   </div>
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="text" name="prel-1" />
+                    <div class="rs-select2 js-select-simple select--no-search">
+                        <select name="prel-1">
+                          <option <?php echo ($given = set_value('prel-1'))?'value='.'"'.$given.'"':'value="" disable selected'; ?>> <?php echo ($given = set_value('prel-1'))?$given:"Choose Value"?></option>
+                          <?php foreach ($guest_option as $item):?>
+                              <?php echo '<option value="'.$item.'">'.$item.'</option>';?>
+                          <?php endforeach;?>
+                        </select>
+                        <div class="select-dropdown"></div>
+                      </div>
                   </div>
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="number" name="page-1" />
-                  </div>
-                </div>
-                <div class="table-form-row table-row table-row-space">
-                  <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="text" name="pname-2" />
-                  </div>
-                  <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="text" name="prel-2" />
-                  </div>
-                  <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="number" name="page-2" />
+                    <input class="table-input--style-5" type="number" min="0" name="page-1" value="<?php echo set_value('page-1')?>"/>
                   </div>
                 </div>
+
                 <div class="table-form-row table-row table-row-space">
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="text" name="pname-3" />
+                    <input class="table-input--style-5" type="text" name="pname-2" value="<?php echo set_value('pname-2')?>" />
                   </div>
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="text" name="prel-3" />
+                    <div class="rs-select2 js-select-simple select--no-search">
+                        <select name="prel-2">
+                          <option <?php echo ($given = set_value('prel-2'))?'value='.'"'.$given.'"':'value="" disable selected'; ?>> <?php echo ($given = set_value('prel-2'))?$given:"Choose Value"?></option>
+                          <?php foreach ($guest_option as $item):?>
+                              <?php echo '<option value="'.$item.'">'.$item.'</option>';?>
+                          <?php endforeach;?>
+                        </select>
+                        <div class="select-dropdown"></div>
+                      </div>
                   </div>
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="number" name="page-3" />
+                    <input class="table-input--style-5" type="number"  min="0" name="page-2" value="<?php echo set_value('page-2')?>" />
                   </div>
                 </div>
+
                 <div class="table-form-row table-row table-row-space">
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="text" name="pname-4" />
+                    <input class="table-input--style-5" type="text" name="pname-3" value="<?php echo set_value('pname-3')?>"/>
                   </div>
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="text" name="prel-4" />
+                      <div class="rs-select2 js-select-simple select--no-search">
+                        <select name="prel-3">
+                          <option <?php echo ($given = set_value('prel-3'))?'value='.'"'.$given.'"':'value="" disable selected'; ?>> <?php echo ($given = set_value('prel-3'))?$given:"Choose Value"?></option>
+                          <?php foreach ($guest_option as $item):?>
+                              <?php echo '<option value="'.$item.'">'.$item.'</option>';?>
+                          <?php endforeach;?>
+                        </select>
+                        <div class="select-dropdown"></div>
+                      </div>
                   </div>
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="number" name="page-4" />
+                    <input class="table-input--style-5" type="number"  min="0" name="page-3" value="<?php echo set_value('page-3')?>"/>
                   </div>
                 </div>
+
                 <div class="table-form-row table-row table-row-space">
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="text" name="pname-5" />
+                    <input class="table-input--style-5" type="text" name="pname-4" value="<?php echo set_value('pname-4')?>" />
                   </div>
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="text" name="prel-5" />
+                      <div class="rs-select2 js-select-simple select--no-search">
+                        <select name="prel-4">
+                          <option <?php echo ($given = set_value('prel-4'))?'value='.'"'.$given.'"':'value="" disable selected'; ?>> <?php echo ($given = set_value('prel-4'))?$given:"Choose Value"?></option>
+                          <?php foreach ($guest_option as $item):?>
+                              <?php echo '<option value="'.$item.'">'.$item.'</option>';?>
+                          <?php endforeach;?>
+                        </select>
+                        <div class="select-dropdown"></div>
+                      </div>
                   </div>
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="number" name="page-5" />
+                    <input class="table-input--style-5" type="number" min="0" name="page-4" value="<?php echo set_value('page-4')?>" />
+                  </div>
+                </div>
+
+                <div class="table-form-row table-row table-row-space">
+                  <div class="table-input-group col-4">
+                    <input class="table-input--style-5" type="text" name="pname-5" value="<?php echo set_value('pname-5')?>"/>
+                  </div>
+                  <div class="table-input-group col-4">
+                      <div class="rs-select2 js-select-simple select--no-search">
+                        <select name="prel-5">
+                          <option <?php echo ($given = set_value('prel-5'))?'value='.'"'.$given.'"':'value="" disable selected'; ?>> <?php echo ($given = set_value('prel-5'))?$given:"Choose Value"?></option>
+                          <?php foreach ($guest_option as $item):?>
+                              <?php echo '<option value="'.$item.'">'.$item.'</option>';?>
+                          <?php endforeach;?>
+                        </select>
+                        <div class="select-dropdown"></div>
+                      </div>
+                  </div>
+                  <div class="table-input-group col-4">
+                    <input class="table-input--style-5" type="number" min="0" name="page-5" value="<?php echo set_value('page-5')?>" />
                   </div>
                 </div>
                 

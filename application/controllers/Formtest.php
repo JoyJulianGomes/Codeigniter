@@ -21,6 +21,7 @@ class Formtest extends CI_Controller
 
         // $form_maker_data -> Data required for initializing view
         $form_maker_data["Batch_Nb"] = $batches;
+        $form_maker_data["guest_option"]= ['Spouse', 'Child'];
 
         // Form Validation Rules:
         $this->load->library('form_validation');
@@ -28,12 +29,7 @@ class Formtest extends CI_Controller
         $this->form_validation->set_rules('Batch', 'Batch Year', 'required');
         $this->form_validation->set_rules('first_name', 'First Name', 'required');
         $this->form_validation->set_rules('last_name', 'Last Name', 'required');
-        // #TODO add validation for photo field
         $this->form_validation->set_rules('photo', 'Photo', 'callback_photo_check');
-        // if (empty($_FILES['photo']['name']))
-        // {
-        //     $this->form_validation->set_rules('photo', 'Photo', 'required');
-        // }
         $this->form_validation->set_rules('father', 'Father\'s  Name', 'required');
         $this->form_validation->set_rules('mother', 'Mother\'s  Name', 'required');
         $this->form_validation->set_rules('gender', 'Gender', 'required|callback_gender_check');
@@ -59,6 +55,13 @@ class Formtest extends CI_Controller
                 'occupation' => $this->input->post('occupation'),
                 'designation' => $this->input->post('designation'),
                 'contact' => $this->input->post('contact'),
+                'guest' => [
+                    'guest_1' => [ 'name' =>$this->input->post('pname-1'), 'rel'=>$this->input->post('prel-1'), 'age'=>$this->input->post('page-1') ],
+                    'guest_2' => [ 'name' =>$this->input->post('pname-2'), 'rel'=>$this->input->post('prel-2'), 'age'=>$this->input->post('page-2') ],
+                    'guest_3' => [ 'name' =>$this->input->post('pname-3'), 'rel'=>$this->input->post('prel-3'), 'age'=>$this->input->post('page-3') ],
+                    'guest_4' => [ 'name' =>$this->input->post('pname-4'), 'rel'=>$this->input->post('prel-4'), 'age'=>$this->input->post('page-4') ],
+                    'guest_5' => [ 'name' =>$this->input->post('pname-5'), 'rel'=>$this->input->post('prel-5'), 'age'=>$this->input->post('page-5') ],
+                ],
             ];
 
             $data = ['data' => $data_from_form];
