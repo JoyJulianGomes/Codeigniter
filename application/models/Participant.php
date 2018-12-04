@@ -87,11 +87,4 @@ class Participant extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    public function getBatch()
-    {
-        $this->db->select("batch");
-        $this->db->from('batchrepresentative');
-        $query = $this->db->get();
-        return $query->result();
-    }
 }
