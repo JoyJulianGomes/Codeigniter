@@ -8,6 +8,6 @@
     
 </head>
 <body>
-    <?php print_r($data);?>
+    <?php print_r($reg_id);?>
 </body>
 </html>

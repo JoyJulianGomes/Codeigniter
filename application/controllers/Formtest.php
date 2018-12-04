@@ -2,7 +2,8 @@
 
 class Formtest extends CI_Controller
 {
-    private function get_photo_config(){
+    private function get_photo_config()
+    {
         return [
             'upload_path' => './uploads/',
             'allowed_types' => 'gif|jpg|png',
@@ -15,20 +16,20 @@ class Formtest extends CI_Controller
     {
         $this->load->helper(array('form', 'url'));
         $this->load->library('upload', $this->get_photo_config());
+        $this->load->model('Participant');
 
         // #TODO Populate $batches from test.batchrepresentative.batch
-        $batches = [2008, 2009, 2010];
+        $batches = [2008, 2009, 2010, 2011, 2012];
 
         // $form_maker_data -> Data required for initializing view
         $form_maker_data["Batch_Nb"] = $batches;
-        $form_maker_data["guest_option"]= ['Spouse', 'Child'];
+        $form_maker_data["guest_option"] = ['Spouse', 'Child'];
 
         // Form Validation Rules:
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<p class="errormsg">', '</p>');
-        $this->form_validation->set_rules('Batch', 'Batch Year', 'required');
-        $this->form_validation->set_rules('first_name', 'First Name', 'required');
-        $this->form_validation->set_rules('last_name', 'Last Name', 'required');
+        $this->form_validation->set_rules('batch', 'Batch Year', 'required');
+        $this->form_validation->set_rules('name', 'Name', 'required');
         $this->form_validation->set_rules('photo', 'Photo', 'callback_photo_check');
         $this->form_validation->set_rules('father', 'Father\'s  Name', 'required');
         $this->form_validation->set_rules('mother', 'Mother\'s  Name', 'required');
@@ -44,9 +45,8 @@ class Formtest extends CI_Controller
         } else {
             // $data_from_form -> user data to be inserted in test.userinfo
             $data_from_form = [
-                'Batch' => $this->input->post('Batch'),
-                'first_name' => $this->input->post('first_name'),
-                'last_name' => $this->input->post('last_name'),
+                'batch' => $this->input->post('batch'),
+                'name' => $this->input->post('name'),
                 'photo' => array('upload_data' => $this->upload->data()),
                 'father' => $this->input->post('father'),
                 'mother' => $this->input->post('mother'),
@@ -56,27 +56,26 @@ class Formtest extends CI_Controller
                 'designation' => $this->input->post('designation'),
                 'contact' => $this->input->post('contact'),
                 'guest' => [
-                    'guest_1' => [ 'name' =>$this->input->post('pname-1'), 'rel'=>$this->input->post('prel-1'), 'age'=>$this->input->post('page-1') ],
-                    'guest_2' => [ 'name' =>$this->input->post('pname-2'), 'rel'=>$this->input->post('prel-2'), 'age'=>$this->input->post('page-2') ],
-                    'guest_3' => [ 'name' =>$this->input->post('pname-3'), 'rel'=>$this->input->post('prel-3'), 'age'=>$this->input->post('page-3') ],
-                    'guest_4' => [ 'name' =>$this->input->post('pname-4'), 'rel'=>$this->input->post('prel-4'), 'age'=>$this->input->post('page-4') ],
-                    'guest_5' => [ 'name' =>$this->input->post('pname-5'), 'rel'=>$this->input->post('prel-5'), 'age'=>$this->input->post('page-5') ],
+                    'guest_1' => ['guest_name' => $this->input->post('pname-1'), 'relation' => $this->input->post('prel-1'), 'age' => $this->input->post('page-1')],
+                    'guest_2' => ['guest_name' => $this->input->post('pname-2'), 'relation' => $this->input->post('prel-2'), 'age' => $this->input->post('page-2')],
+                    'guest_3' => ['guest_name' => $this->input->post('pname-3'), 'relation' => $this->input->post('prel-3'), 'age' => $this->input->post('page-3')],
+                    'guest_4' => ['guest_name' => $this->input->post('pname-4'), 'relation' => $this->input->post('prel-4'), 'age' => $this->input->post('page-4')],
+                    'guest_5' => ['guest_name' => $this->input->post('pname-5'), 'relation' => $this->input->post('prel-5'), 'age' => $this->input->post('page-5')],
                 ],
             ];
 
-            $data = ['data' => $data_from_form];
-
             // #TODO call data insertion function here
+            $success['reg_id'] = $this->Participant->add_participant($data_from_form);
 
             // #TODO on insertion success load payment instruction view
-            $this->load->view('Formsuccess', $data);
+            $this->load->view('Formsuccess', $success);
 
             // #TODO on insertion failure load register view
         }
     }
     public function photo_check($field)
     {
-        if ( ! $this->upload->do_upload('photo')) {
+        if (!$this->upload->do_upload('photo')) {
             $this->form_validation->set_message('photo_check', $this->upload->display_errors('<p class="errormsg">', '</p>'));
             return false;
         } else {

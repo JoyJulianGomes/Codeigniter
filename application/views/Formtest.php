@@ -70,8 +70,8 @@
                   <div class="input-group">
                     <div class="rs-select2 js-select-simple select--no-search">
                     <?php echo form_error('Batch'); ?>  
-                    <select name="Batch">
-                        <option <?php echo ($given = set_value('Batch'))?'value='.'"'.$given.'"':'value="" disable selected'; ?>> <?php echo ($given = set_value('Batch'))?$given:"Choose Value"?></option>
+                    <select name="batch">
+                        <option <?php echo ($given = set_value('batch'))?'value='.'"'.$given.'"':'value="" disable selected'; ?>> <?php echo ($given = set_value('batch'))?$given:"Choose Value"?></option>
                         <?php foreach ($Batch_Nb as $item):?>
                             <?php echo '<option value="'.$item.'">'.$item.'</option>';?>
                         <?php endforeach;?>
@@ -81,34 +81,17 @@
                   </div>
                 </div>
               </div>
-              <div class="form-row m-b-55">
+              <div class="form-row">
                 <div class="name">Name</div>
                 <div class="value">
-                  <div class="row row-space">
-                    <div class="col-2">
-                      <div class="input-group-desc">
-                        <?php echo form_error('first_name'); ?>
-                        <input
-                          class="input--style-5"
-                          type="text"
-                          name="first_name"
-                          value="<?php echo set_value('first_name'); ?>"
-                        />
-                        <label class="label--desc">first name</label>
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <div class="input-group-desc">
-                      <?php echo form_error('last_name'); ?>
-                        <input
-                          class="input--style-5"
-                          type="text"
-                          name="last_name"
-                          value="<?php echo set_value('last_name'); ?>"
-                        />
-                        <label class="label--desc">last name</label>
-                      </div>
-                    </div>
+                  <div class="input-group">
+                    <?php echo form_error('name'); ?>
+                    <input
+                      class="input--style-5"
+                      type="text"
+                      name="name"
+                      value="<?php echo set_value('name'); ?>"
+                    />
                   </div>
                 </div>
               </div>
