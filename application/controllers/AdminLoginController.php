@@ -4,7 +4,9 @@ class AdminLoginController extends CI_Controller
 {
     public function index()
     {
+        
         $this->load->helper('url');
+        $this->load->view('adminLoginView');
     }
     public function Print()
     {
