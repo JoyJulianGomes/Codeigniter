@@ -2,15 +2,25 @@
 
 class Formtest extends CI_Controller
 {
+    private function get_photo_config(){
+        return [
+            'upload_path' => './uploads/',
+            'allowed_types' => 'gif|jpg|png',
+            'max_size' => 2048,
+            'max_width' => 2048,
+            'max_height' => 1920,
+        ];
+    }
     public function index()
     {
         $this->load->helper(array('form', 'url'));
+        $this->load->library('upload', $this->get_photo_config());
 
         // #TODO Populate $batches from test.batchrepresentative.batch
         $batches = [2008, 2009, 2010];
 
         // $form_maker_data -> Data required for initializing view
-        $form_maker_data = ["Batch_Nb" => $batches];
+        $form_maker_data["Batch_Nb"] = $batches;
 
         // Form Validation Rules:
         $this->load->library('form_validation');
@@ -19,6 +29,11 @@ class Formtest extends CI_Controller
         $this->form_validation->set_rules('first_name', 'First Name', 'required');
         $this->form_validation->set_rules('last_name', 'Last Name', 'required');
         // #TODO add validation for photo field
+        $this->form_validation->set_rules('photo', 'Photo', 'callback_photo_check');
+        // if (empty($_FILES['photo']['name']))
+        // {
+        //     $this->form_validation->set_rules('photo', 'Photo', 'required');
+        // }
         $this->form_validation->set_rules('father', 'Father\'s  Name', 'required');
         $this->form_validation->set_rules('mother', 'Mother\'s  Name', 'required');
         $this->form_validation->set_rules('gender', 'Gender', 'required|callback_gender_check');
@@ -36,7 +51,7 @@ class Formtest extends CI_Controller
                 'Batch' => $this->input->post('Batch'),
                 'first_name' => $this->input->post('first_name'),
                 'last_name' => $this->input->post('last_name'),
-                // #TODO add photo field
+                'photo' => array('upload_data' => $this->upload->data()),
                 'father' => $this->input->post('father'),
                 'mother' => $this->input->post('mother'),
                 'gender' => $this->input->post('gender'),
@@ -54,7 +69,15 @@ class Formtest extends CI_Controller
             $this->load->view('Formsuccess', $data);
 
             // #TODO on insertion failure load register view
-
+        }
+    }
+    public function photo_check($field)
+    {
+        if ( ! $this->upload->do_upload('photo')) {
+            $this->form_validation->set_message('photo_check', $this->upload->display_errors('<p class="errormsg">', '</p>'));
+            return false;
+        } else {
+            return true;
         }
     }
     public function contact_check($number)

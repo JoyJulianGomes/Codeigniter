@@ -8,8 +8,6 @@
     
 </head>
 <body>
-    <?php foreach ($data as $key=>$value):?>
-        <?php echo $key ."=>".$value."<br>";?>
-    <?php endforeach;?>
+    <?php print_r($data);?>
 </body>
 </html>

@@ -118,9 +118,10 @@
                   <div class="input-group" style="display:flex">
                     <span class="input-group-btn">
                       <span class="btn btn--radius-2 btn--blue btn-file">
-                        Browse <input name="photo" type="file" single />
+                        Browse <input name="photo" type="file" single formtarget="<?php echo set_value('photo')?>"/>
                       </span>
                     </span>
+                    <?php echo form_error('photo'); ?>
                     <input type="text" class="input--style-5" readonly />
                   </div>
                 </div>
