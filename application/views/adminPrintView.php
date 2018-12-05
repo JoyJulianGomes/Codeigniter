@@ -35,7 +35,7 @@
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown d-none d-xl-inline-block">
               <span class="profile-text">Hello, <?php echo $this->session->userdata('username');?>!</span>
-              <span style="color:red"><?php echo anchor('AdminLoginController/logout', 'Logout', 'style="color:red"');?></span>
+              <span style="color:red"><?php echo anchor('AdminController/logout', 'Logout', 'style="color:red"');?></span>
             </a>
           </li>
         </ul>

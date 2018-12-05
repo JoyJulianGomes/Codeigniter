@@ -41,15 +41,14 @@ class AdminController extends CI_Controller
         redirect(base_url() . 'index.php/' . 'AdminController/index');
     }
 
-    function print() 
+    public function print() 
     {
         $this->load->helper('url');
 
-        //check if logged in
         if ($this->session->userdata('logged_in')) {
             $this->load->view('adminPrintView');
         } else {
-            redirect(base_url() . 'index.php' . 'AdminController/index');
+            redirect(base_url() . 'index.php/' . 'AdminController/index');
         }
 
     }
@@ -57,22 +56,22 @@ class AdminController extends CI_Controller
     public function ValidateApplicants()
     {
         $this->load->helper('url');
-        $this->load->helper('form');  
-        $this->load->model('PaymentModel');
-        $this->load->model('AdminModel');
-        
-        $this->load->library('form_validation');
-        $this->form_validation->set_error_delimiters('<p class="errormsg">', '</p>');
-        $this->form_validation->set_rules('regid', 'Required', 'required');
-        $this->form_validation->set_rules('trxID', 'Required', 'required');
-        $this->form_validation->set_rules('amount', 'Add amount', 'required');
+        if ($this->session->userdata('logged_in')) {
+            $this->load->helper('form');  
+            $this->load->model('PaymentModel');
+            $this->load->model('AdminModel');
+            
+            $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters('<p class="errormsg">', '</p>');
+            $this->form_validation->set_rules('regid', 'Required', 'required');
+            $this->form_validation->set_rules('trxID', 'Required', 'required');
+            $this->form_validation->set_rules('amount', 'Add amount', 'required');
 
-        if($this->form_validation->run() == false)
-        {
-            $data["userinfo"] = (object) array("regid"=>' ',"name"=>' ', "batch"=>' ', "total_amount"=>' ', "paid_amount"=>' ', "status"=>''); 
-            $this->load->view('vaildateapplicantView', $data);
-        } else {
-            if ($this->session->userdata('logged_in')) {
+            if($this->form_validation->run() == false)
+            {
+                $data["userinfo"] = (object) array("regid"=>' ',"name"=>' ', "batch"=>' ', "total_amount"=>' ', "paid_amount"=>' ', "status"=>''); 
+                $this->load->view('vaildateapplicantView', $data);
+            } else {
                 $payment_data = [
                     "regid"=>$this->input->post('regid'),
                     "trxID"=>$this->input->post('trxID'),
@@ -82,11 +81,12 @@ class AdminController extends CI_Controller
                 if($status){
                     $this->update_uesr_paid_amount($payment_data['regid'], $payment_data['amount']);
                 }
-            } else {
-                redirect(base_url() . 'index.php' . 'AdminController/index');
-            }
-            $data["userinfo"] = $this->AdminModel->getParticipantInfo($this->input->post('regid'));
-            $this->load->view('vaildateapplicantView', $data);
+                
+                $data["userinfo"] = $this->AdminModel->getParticipantInfo($this->input->post('regid'));
+                $this->load->view('vaildateapplicantView', $data);
+        }
+        } else {
+            redirect(base_url() . 'index.php/' . 'AdminController/index');
         }
     }
 
