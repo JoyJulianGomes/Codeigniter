@@ -69,34 +69,24 @@ class AdminController extends CI_Controller
 
         if($this->form_validation->run() == false)
         {
-                $data["userinfo"] = (object) array("regid"=>' ',"name"=>' ', "batch"=>' ', "total_amount"=>' ', "paid_amount"=>' ', "status"=>''); 
-                
-                
-                $this->load->view('vaildateapplicantView', $data);
-        }
-        else
-        {
-                $data["userinfo"] = $this->AdminModel->getParticipantInfo($this->input->post('regid') );
-                
-                $this->load->view('vaildateapplicantView', $data);
-                // foreach( $this->AdminModel->getParticipantInfo() as $user )
-                // {
-                //     echo $user["name"];
-                // }
-                //check if logged in
-                if ($this->session->userdata('logged_in')) {
-                    $payment_data = [
-                        "regid"=>$this->input->post('regid'),
-                        "trxID"=>$this->input->post('trxID'),
-                        "amount"=>$this->input->post('amount')
-                    ];
-                    $status = $this->PaymentModel->add($payment_data);
-                    if($status){
-                        $this->update_uesr_paid_amount($payment_data['regid'], $payment_data['amount']);
-                    }
-                } else {
-                    redirect(base_url() . 'index.php' . 'AdminController/index');
+            $data["userinfo"] = (object) array("regid"=>' ',"name"=>' ', "batch"=>' ', "total_amount"=>' ', "paid_amount"=>' ', "status"=>''); 
+            $this->load->view('vaildateapplicantView', $data);
+        } else {
+            if ($this->session->userdata('logged_in')) {
+                $payment_data = [
+                    "regid"=>$this->input->post('regid'),
+                    "trxID"=>$this->input->post('trxID'),
+                    "amount"=>$this->input->post('amount')
+                ];
+                $status = $this->PaymentModel->add($payment_data);
+                if($status){
+                    $this->update_uesr_paid_amount($payment_data['regid'], $payment_data['amount']);
                 }
+            } else {
+                redirect(base_url() . 'index.php' . 'AdminController/index');
+            }
+            $data["userinfo"] = $this->AdminModel->getParticipantInfo($this->input->post('regid'));
+            $this->load->view('vaildateapplicantView', $data);
         }
     }
 
@@ -104,12 +94,12 @@ class AdminController extends CI_Controller
     {
         $this->load->model('Participant');
         $data = $this->Participant->get_payable_and_paid_amount($regid);
-        print_r($data);
         $new_amount = $data->paid_amount+$amount;
         $status = $this->Participant->update_paid_amount($regid, $new_amount);
         if($status){
-            if($new_amount == $data->total_amount && !$data->status){
-                $this->Participant->update_status($regid);
+            print_r($data);
+            if($new_amount >= $data->total_amount && !$data->status){
+                $status = $this->Participant->update_status($regid);
             }
         }
     }
