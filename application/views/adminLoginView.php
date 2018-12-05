@@ -26,7 +26,7 @@
         <div class="row w-100">
           <div class="col-lg-4 mx-auto">
             <div class="auto-form-wrapper">
-              <?php echo form_open("AdminLoginController/login_validation");?>
+              <?php echo form_open("AdminController/login_validation");?>
                 <div class="form-group">
                   <label class="label">Username</label><p style="color:red"><?php echo form_error('username');?></p>
                   <div class="input-group">

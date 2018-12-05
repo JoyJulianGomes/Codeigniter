@@ -76,25 +76,33 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-        <div class="row">
+        <h4 class="card-title">Validate User</h4>  
+        <?php echo form_open('Controller/index'); ?>
+                        <div class="form-group row">
+                          <label for="exampleInputEmail2" class="col-sm-2 col-form-label">Registration ID</label>
+                          <div class="col-sm-3">
+                            <input type="number" class="form-control" name="regid" id="exampleInputEmail2" placeholder="Regsitartion ID">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="exampleInputPassword2" class="col-sm-2 col-form-label">Transaction ID</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" name="trxID" id="exampleInputPassword2" placeholder="Transaction ID">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="exampleInputEmail2" class="col-sm-2 col-form-label">Amount</label>
+                          <div class="col-sm-3">
+                            <input type="number" min="0" class="form-control" name="amount" id="exampleInputEmail2" placeholder="Amount">
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-success mr-2">Save</button>
+            <?php echo form_close(); ?>
+            <div class="row">
             <div class="col-lg-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <label class="col-sm-3 col-form-label">Batch</label>
-                          <div class="col-sm-9">
-                            <select class="form-control">
-                              <option>2009</option>
-                            </select>
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>   
-        <div class="row">
-            <div class="col-lg-12 grid-margin">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">User Info</h4>
+                  <h4 class="card-title">Validated Users</h4>
                   <div class="table-responsive">
                     <table class="table table-bordered">
                       <thead>
@@ -109,18 +117,22 @@
                             Name
                           </th>
                           <th>
-                            Gender
+                          Batch
                           </th>
                           <th>
-                            Batch
+                            Payable
                           </th>
                           <th>
-                            Contact
+                            Paid
+                          </th>
+                          <th>
+                            Status
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
+                          <td class="font-weight-medium"></td>
                           <td class="font-weight-medium"></td>
                           <td class="font-weight-medium"></td>
                           <td class="font-weight-medium"></td>
@@ -134,9 +146,6 @@
                 </div>
               </div>
             </div>
-          </div>  
-          <div class="row">
-                    <button type="button" class="btn btn-success btn-fw">Print</button>
           </div>  
         </div>
         <!-- content-wrapper ends -->

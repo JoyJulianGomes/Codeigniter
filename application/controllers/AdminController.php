@@ -25,7 +25,7 @@ class AdminLoginController extends CI_Controller
             if($this->ModeratorModel->can_login($username, $password)) {
                 $session_data = ['username' => $username, 'logged_in' => true];
                 $this->session->set_userdata($session_data);
-                redirect(base_url().'index.php/'.'AdminLoginController/print');
+                redirect(base_url().'index.php/'.'AdminController/print');
             } else {
                 $this->load->view('adminLoginView', ['login_error'=>"Incorrect username or password"]);
             }
@@ -37,7 +37,7 @@ class AdminLoginController extends CI_Controller
     public function logout(){
         $this->load->helper('url');
         $this->session->unset_userdata(['username', 'logged_in']);
-        redirect(base_url().'index.php/'.'AdminLoginController/index');
+        redirect(base_url().'index.php/'.'AdminController/index');
     }
 
     function print() {
@@ -47,17 +47,16 @@ class AdminLoginController extends CI_Controller
         if($this->session->userdata('logged_in')){
             $this->load->view('adminPrintView');
         } else {
-            redirect(base_url(). 'index.php'. 'AdminLoginController/index');
+            redirect(base_url(). 'index.php'. 'AdminController/index');
         }
 
     }
-
-
-
     public function ValidateApplicants()
     {
 
         $this->load->helper('url');
         $this->load->view('vaildateapplicantView');
+
+        
     }
 }
