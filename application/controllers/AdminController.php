@@ -1,6 +1,6 @@
 <?php
 
-class AdminLoginController extends CI_Controller
+class AdminController extends CI_Controller
 {
     public function index()
     {
@@ -55,8 +55,29 @@ class AdminLoginController extends CI_Controller
     {
 
         $this->load->helper('url');
-        $this->load->view('vaildateapplicantView');
-
+        $this->load->helper('form');  
+        $this->load->model('AdminModel');
         
+        $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<p class="errormsg">', '</p>');
+        $this->form_validation->set_rules('regid', 'Required', 'required');
+        $this->form_validation->set_rules('trxID', 'Required', 'required');
+        $this->form_validation->set_rules('amount', 'Add amount', 'required');
+
+        if($this->form_validation->run() == false)
+        {
+                // $this->data["userinfo"] =["regid"=>' ',"name"=>' ', "batch"=>' ', "total_amount"=>' ', "paid_amount"=>' ', "status"=>' ']; 
+                $this->load->view('vaildateapplicantView');
+        }
+        else
+        {
+                $this->data["userinfo"] = $this->AdminModel->getParticipantInfo($this->input->post('regid') );
+                print_r($this->data["userinfo"]);
+                $this->load->view('vaildateapplicantView', $this->data);
+                // foreach( $this->AdminModel->getParticipantInfo() as $user )
+                // {
+                //     echo $user["name"];
+                // }
+        }
     }
 }

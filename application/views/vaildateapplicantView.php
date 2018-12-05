@@ -20,7 +20,6 @@
 </head>
 
 <body>
-
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -77,22 +76,25 @@
       <div class="main-panel">
         <div class="content-wrapper">
         <h4 class="card-title">Validate User</h4>  
-        <?php echo form_open('Controller/index'); ?>
+        <?php echo form_open('AdminController/ValidateApplicants'); ?>
                         <div class="form-group row">
                           <label for="exampleInputEmail2" class="col-sm-2 col-form-label">Registration ID</label>
                           <div class="col-sm-3">
+                            <?php echo form_error('regid'); ?>
                             <input type="number" class="form-control" name="regid" id="exampleInputEmail2" placeholder="Regsitartion ID">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label for="exampleInputPassword2" class="col-sm-2 col-form-label">Transaction ID</label>
                           <div class="col-sm-3">
+                          <?php echo form_error('trxID'); ?>
                             <input type="text" class="form-control" name="trxID" id="exampleInputPassword2" placeholder="Transaction ID">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label for="exampleInputEmail2" class="col-sm-2 col-form-label">Amount</label>
                           <div class="col-sm-3">
+                          <?php echo form_error('amount'); ?>
                             <input type="number" min="0" class="form-control" name="amount" id="exampleInputEmail2" placeholder="Amount">
                           </div>
                         </div>
@@ -107,9 +109,6 @@
                     <table class="table table-bordered">
                       <thead>
                         <tr>
-                          <th>
-                            #
-                          </th>
                           <th>
                             Registration ID
                           </th>
@@ -131,15 +130,16 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td class="font-weight-medium"></td>
-                          <td class="font-weight-medium"></td>
-                          <td class="font-weight-medium"></td>
-                          <td class="font-weight-medium"></td>
-                          <td class="font-weight-medium"></td>
-                          <td class="font-weight-medium"></td>
-                          <td class="font-weight-medium"></td>
+                      <?php foreach ($userinfo as $user):?>
+                        <tr> 
+                        <td class="font-weight-medium"><?php echo $user->regid?></td>
+                          <td class="font-weight-medium"><?php echo $user->name?></td>
+                          <td class="font-weight-medium"><?php echo $user->batch?></td>
+                          <td class="font-weight-medium"><?php echo $user->total_amount?></td>
+                          <td class="font-weight-medium"><?php echo $user->paid_amount?></td>
+                          <td class="font-weight-medium"><?php echo ($user->status)?"Valid":"Invalid" ?></td>
                         </tr>
+                        <?php endforeach;?>
                       </tbody>
                     </table>
                   </div>
