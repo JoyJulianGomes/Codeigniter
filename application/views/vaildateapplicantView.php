@@ -99,6 +99,9 @@
                             Name
                           </th>
                           <th>
+                            Contact
+                          </th>
+                          <th>
                           Batch
                           </th>
                           <th>
@@ -117,10 +120,11 @@
                         <tr> 
                         <td class="font-weight-medium"><?php echo $userinfo->regid?></td>
                           <td class="font-weight-medium"><?php echo $userinfo->name?></td>
+                          <td class="font-weight-medium"><?php echo $userinfo->contact?></td>
                           <td class="font-weight-medium"><?php echo $userinfo->batch?></td>
                           <td class="font-weight-medium"><?php echo $userinfo->total_amount?></td>
                           <td class="font-weight-medium"><?php echo $userinfo->paid_amount?></td>
-                          <td class="font-weight-medium"><?php echo (empty($userinfo->status))?'':(($userinfo->status)?"Valid":"Invalid")?></td>
+                          <td class="font-weight-medium"><?php if($userinfo->status===null){echo 'empty';}else{echo ($userinfo->status)?'valid':'invalid';}?></td>
                         </tr>
                        
                       </tbody>

@@ -74,13 +74,17 @@ class AdminController extends CI_Controller
 
             if($this->form_validation->run() == false)
             {
-                $data["userinfo"] = (object) array("regid"=>'',"name"=>'', "batch"=>'', "total_amount"=>'', "paid_amount"=>'', "status"=>''); 
+                $data["userinfo"] = (object) array("regid"=>'',"name"=>'', "contact"=>'', "batch"=>'', "total_amount"=>'', "paid_amount"=>'', "status"=>null); 
                 $this->load->view('vaildateapplicantView', $data);
             } else {
+                date_default_timezone_set('Asia/Dhaka');
+                $date = date("Y-m-d H:i:s");
                 $payment_data = [
                     "regid"=>$this->input->post('regid'),
                     "trxID"=>$this->input->post('trxID'),
-                    "amount"=>$this->input->post('amount')
+                    "amount"=>$this->input->post('amount'),
+                    "moderator"=>$this->session->userdata('username'),
+                    "date"=>$date,
                 ];
                 $status = $this->PaymentModel->add($payment_data);
                 if($status){
@@ -89,7 +93,7 @@ class AdminController extends CI_Controller
                 
                 $data["userinfo"] = $this->AdminModel->getParticipantInfo($this->input->post('regid'));
                 $this->load->view('vaildateapplicantView', $data);
-        }
+            }
         } else {
             redirect(base_url() . 'AdminController/index');
         }
