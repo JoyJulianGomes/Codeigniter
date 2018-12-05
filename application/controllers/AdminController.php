@@ -6,7 +6,12 @@ class AdminController extends CI_Controller
     {
         $this->load->helper('url');
         $this->load->helper('form');
-        $this->load->view('adminLoginView');
+
+        if ($this->session->userdata('logged_in')) {
+            redirect(base_url()."AdminController/ValidateApplicants");
+        } else {
+            $this->load->view('adminLoginView');
+        }
     }
 
     public function login_validation()
@@ -25,7 +30,7 @@ class AdminController extends CI_Controller
             if ($this->ModeratorModel->can_login($username, $password)) {
                 $session_data = ['username' => $username, 'logged_in' => true];
                 $this->session->set_userdata($session_data);
-                redirect(base_url() . 'index.php/' . 'AdminController/print');
+                redirect(base_url() . 'AdminController/ValidateApplicants');
             } else {
                 $this->load->view('adminLoginView', ['login_error' => "Incorrect username or password"]);
             }
@@ -38,7 +43,7 @@ class AdminController extends CI_Controller
     {
         $this->load->helper('url');
         $this->session->unset_userdata(['username', 'logged_in']);
-        redirect(base_url() . 'index.php/' . 'AdminController/index');
+        redirect(base_url() . 'AdminController/index');
     }
 
     public function print() 
@@ -48,7 +53,7 @@ class AdminController extends CI_Controller
         if ($this->session->userdata('logged_in')) {
             $this->load->view('adminPrintView');
         } else {
-            redirect(base_url() . 'index.php/' . 'AdminController/index');
+            redirect(base_url() . 'AdminController/index');
         }
 
     }
@@ -69,7 +74,7 @@ class AdminController extends CI_Controller
 
             if($this->form_validation->run() == false)
             {
-                $data["userinfo"] = (object) array("regid"=>' ',"name"=>' ', "batch"=>' ', "total_amount"=>' ', "paid_amount"=>' ', "status"=>''); 
+                $data["userinfo"] = (object) array("regid"=>'',"name"=>'', "batch"=>'', "total_amount"=>'', "paid_amount"=>'', "status"=>''); 
                 $this->load->view('vaildateapplicantView', $data);
             } else {
                 $payment_data = [
@@ -86,7 +91,7 @@ class AdminController extends CI_Controller
                 $this->load->view('vaildateapplicantView', $data);
         }
         } else {
-            redirect(base_url() . 'index.php/' . 'AdminController/index');
+            redirect(base_url() . 'AdminController/index');
         }
     }
 
