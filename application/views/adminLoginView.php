@@ -26,11 +26,11 @@
         <div class="row w-100">
           <div class="col-lg-4 mx-auto">
             <div class="auto-form-wrapper">
-              <form action="#">
+              <?php echo form_open("AdminLoginController/login_validation");?>
                 <div class="form-group">
-                  <label class="label">Username</label>
+                  <label class="label">Username</label><p style="color:red"><?php echo form_error('username');?></p>
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Username">
+                    <input type="text" name='username' class="form-control" placeholder="Username">
                     <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="mdi mdi-check-circle-outline"></i>
@@ -39,9 +39,9 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="label">Password</label>
+                  <label class="label">Password</label><p style="color:red"><?php echo form_error('password');?></p>
                   <div class="input-group">
-                    <input type="password" class="form-control" placeholder="*********">
+                    <input type="password" name='password' class="form-control" placeholder="*********">
                     <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="mdi mdi-check-circle-outline"></i>
@@ -49,9 +49,10 @@
                     </div>
                   </div>
                 </div>
+                <label><?php echo (isset($login_error))?$login_error:'';?></label>
                 <div class="form-group">
                   <button class="btn btn-primary submit-btn btn-block">Login</button>
-              </form>
+              <?php echo form_close()?>
             </div>
             <p class="footer-text text-center"></p>
           </div>

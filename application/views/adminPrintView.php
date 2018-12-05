@@ -20,7 +20,6 @@
 </head>
 
 <body>
-
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -35,7 +34,8 @@
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown d-none d-xl-inline-block">
-              <span class="profile-text">Hello, Richard V.Welsh !</span>
+              <span class="profile-text">Hello, <?php echo $this->session->userdata('username');?>!</span>
+              <span style="color:red"><?php echo anchor('AdminLoginController/logout', 'Logout', 'style="color:red"');?></span>
             </a>
           </li>
         </ul>
