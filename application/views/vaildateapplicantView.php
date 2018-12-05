@@ -34,7 +34,8 @@
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown d-none d-xl-inline-block">
-              <span class="profile-text">Hello, Richard V.Welsh !</span>
+              <span class="profile-text">Hello, <?php echo $this->session->userdata('username');?>!</span>
+              <span style="color:red"><?php echo anchor('AdminController/logout', 'Logout', 'style="color:red"');?></span>
             </a>
           </li>
         </ul>
@@ -47,28 +48,10 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
-              <i class="menu-icon fa-print"></i>
-              <span class="menu-title">Print</span>
-            </a>
+            <?php echo anchor('AdminController/ValidateApplicants', '<i class="menu-icon fa-print"></i><span class="menu-title">Validate Applicants</span>', 'class="nav-link"');?>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
-              <i class="menu-icon fa fa-user-o"></i>
-              <span class="menu-title">Add Moderator</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">
-              <i class="menu-icon fa-money"></i>
-              <span class="menu-title">Change BKash Number</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">
-              <i class="menu-icon fa-check"></i>
-              <span class="menu-title">Validate Applicants</span>
-            </a>
+            <?php echo anchor('AdminController/Print', '<i class="menu-icon fa-print"></i><span class="menu-title">Print</span>', 'class="nav-link"');?>
           </li>
         </ul>
       </nav>
@@ -137,7 +120,7 @@
                           <td class="font-weight-medium"><?php echo $userinfo->batch?></td>
                           <td class="font-weight-medium"><?php echo $userinfo->total_amount?></td>
                           <td class="font-weight-medium"><?php echo $userinfo->paid_amount?></td>
-                          <td class="font-weight-medium"><?php echo ($userinfo->status)?"Valid":"Invalid" ?></td>
+                          <td class="font-weight-medium"><?php echo (empty($userinfo->status))?'':(($userinfo->status)?"Valid":"Invalid")?></td>
                         </tr>
                        
                       </tbody>
