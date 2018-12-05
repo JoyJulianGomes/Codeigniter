@@ -22,7 +22,8 @@ class Participant extends CI_Model
         $this->db->select('total_amount, paid_amount, status');
         $this->db->where('regid', $regid);
         $query = $this->db->get('userinfo');
-        return $query->result();
+        $rst = $query->result();
+        return $rst[0];
     }
 
     public function update_paid_amount($regid, $amount)

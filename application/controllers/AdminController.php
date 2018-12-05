@@ -1,6 +1,6 @@
 <?php
 
-class AdminLoginController extends CI_Controller
+class AdminController extends CI_Controller
 {
     public function index()
     {
@@ -57,19 +57,46 @@ class AdminLoginController extends CI_Controller
     public function ValidateApplicants()
     {
         $this->load->helper('url');
+        $this->load->helper('form');  
         $this->load->model('PaymentModel');
-        $this->load->view('vaildateapplicantView');
+        $this->load->model('AdminModel');
+        
+        $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<p class="errormsg">', '</p>');
+        $this->form_validation->set_rules('regid', 'Required', 'required');
+        $this->form_validation->set_rules('trxID', 'Required', 'required');
+        $this->form_validation->set_rules('amount', 'Add amount', 'required');
 
-
-        //check if logged in
-        if ($this->session->userdata('logged_in')) {
-            $data = ['regid'=>11, 'trxID'=>'BFG012987', 'amount'=>1100];
-            $status = $this->PaymentModel->add($data);
-            if($status){
-                $this->update_uesr_paid_amount($data['regid'], $data['amount']);
-            }
-        } else {
-            redirect(base_url() . 'index.php' . 'AdminController/index');
+        if($this->form_validation->run() == false)
+        {
+                $data["userinfo"] = (object) array("regid"=>' ',"name"=>' ', "batch"=>' ', "total_amount"=>' ', "paid_amount"=>' ', "status"=>''); 
+                
+                
+                $this->load->view('vaildateapplicantView', $data);
+        }
+        else
+        {
+                $data["userinfo"] = $this->AdminModel->getParticipantInfo($this->input->post('regid') );
+                
+                $this->load->view('vaildateapplicantView', $data);
+                // foreach( $this->AdminModel->getParticipantInfo() as $user )
+                // {
+                //     echo $user["name"];
+                // }
+                //check if logged in
+                if ($this->session->userdata('logged_in')) {
+                    $payment_data = [
+                        "regid"=>$this->input->post('regid'),
+                        "trxID"=>$this->input->post('trxID'),
+                        "amount"=>$this->input->post('amount')
+                    ];
+                    $status = $this->PaymentModel->add($payment_data);
+                    if($status){
+                        $this->update_uesr_paid_amount($payment_data['regid'], $payment_data['amount']);
+                    }
+                } else {
+                    redirect(base_url() . 'index.php' . 'AdminController/index');
+                }
         }
     }
 
@@ -77,6 +104,7 @@ class AdminLoginController extends CI_Controller
     {
         $this->load->model('Participant');
         $data = $this->Participant->get_payable_and_paid_amount($regid);
+        print_r($data);
         $new_amount = $data->paid_amount+$amount;
         $status = $this->Participant->update_paid_amount($regid, $new_amount);
         if($status){
