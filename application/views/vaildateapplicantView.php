@@ -53,6 +53,9 @@
           <li class="nav-item">
             <?php echo anchor('AdminController/Print', '<i class="menu-icon fa-print"></i><span class="menu-title">Print</span>', 'class="nav-link"');?>
           </li>
+          <li class="nav-item">
+            <?php echo anchor('AdminController/addRepresentative', '<i class="menu-icon fa-print"></i><span class="menu-title">Add Batch & Representative</span>', 'class="nav-link"');?>
+          </li>
         </ul>
       </nav>
       <!-- partial -->
@@ -124,7 +127,7 @@
                           <td class="font-weight-medium"><?php echo $userinfo->batch?></td>
                           <td class="font-weight-medium"><?php echo $userinfo->total_amount?></td>
                           <td class="font-weight-medium"><?php echo $userinfo->paid_amount?></td>
-                          <td class="font-weight-medium"><?php if($userinfo->status===null){echo 'empty';}else{echo ($userinfo->status)?'valid':'invalid';}?></td>
+                          <td class="font-weight-medium"><?php if($userinfo->status===null){echo '';}else{echo ($userinfo->status)?'valid':'invalid';}?></td>
                         </tr>
                        
                       </tbody>
