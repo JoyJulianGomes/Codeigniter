@@ -38,4 +38,23 @@ class Participant extends CI_Model
         $this->db->where('regid', $regid);
         return $this->db->update('userinfo', ['status'=>true]);
     }
+
+    public function getParticipantInfo($rid)
+    {
+        $this->db->select("regid,name, contact, batch, total_amount, paid_amount, status");
+        $this->db->where("regid", $rid);
+        $this->db->from('userinfo');
+        $query = $this->db->get();
+        $rst = $query->result();
+        return $rst[0];
+    }
+    
+    public function getParticipantList($btch)
+    {
+        $this->db->select("regid, name, gender, batch, contact");
+        $this->db->where("batch", $btch);
+        $query = $this->db->get("userinfo");
+        $rst = $query->result();
+        return $rst;
+    }
 }

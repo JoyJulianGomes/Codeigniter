@@ -25,4 +25,20 @@ class ModeratorModel extends CI_Model
         $result = $query->result();
         return $result;
     }
+
+    public function getModeratorList()
+    {
+        $this->db->select("name, contact");
+        $this->db->from('moderator');
+        $query = $this->db->get();
+        $rst = $query->result();
+        return $rst;
+    }
+
+    public function add($data)
+    {
+        $this->db->insert('moderator', $data);
+        $id = $this->db->insert_id();
+        return $id;
+    }
 }

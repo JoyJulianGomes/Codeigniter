@@ -51,7 +51,7 @@
             <?php echo anchor('AdminController/ValidateApplicants', '<i class="menu-icon fa-print"></i><span class="menu-title">Validate Applicants</span>', 'class="nav-link"');?>
           </li>
           <li class="nav-item">
-            <?php echo anchor('AdminController/Print', '<i class="menu-icon fa-print"></i><span class="menu-title">Print</span>', 'class="nav-link"');?>
+            <?php echo anchor('AdminController/PrintApplicants', '<i class="menu-icon fa-print"></i><span class="menu-title">Print</span>', 'class="nav-link"');?>
           </li>
           <li class="nav-item">
             <?php echo anchor('AdminController/addRepresentative', '<i class="menu-icon fa-print"></i><span class="menu-title">Add Batch & Representative</span>', 'class="nav-link"');?>
@@ -120,13 +120,15 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr> 
-                            <td class="font-weight-medium"><?php echo $table->regid?></td>
-                            <td class="font-weight-medium"><?php echo $table->name?></td>
-                            <td class="font-weight-medium"><?php echo $table->gender?></td>
-                            <td class="font-weight-medium"><?php echo $table->batch?></td>
-                            <td class="font-weight-medium"><?php echo $table->contact?></td>
-                        </tr>
+                        <?php foreach($table as $row):?>
+                          <tr> 
+                              <td class="font-weight-medium"><?=$row->regid?></td>
+                              <td class="font-weight-medium"><?=$row->name?></td>
+                              <td class="font-weight-medium"><?=$row->gender?></td>
+                              <td class="font-weight-medium"><?=$row->batch?></td>
+                              <td class="font-weight-medium"><?=$row->contact?></td>
+                          </tr>
+                        <?php endforeach;?>    
                       </tbody>
                     </table>
                   </div>

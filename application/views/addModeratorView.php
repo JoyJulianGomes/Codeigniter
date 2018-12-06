@@ -51,7 +51,7 @@
             <?php echo anchor('AdminController/ValidateApplicants', '<i class="menu-icon fa-print"></i><span class="menu-title">Validate Applicants</span>', 'class="nav-link"');?>
           </li>
           <li class="nav-item">
-            <?php echo anchor('AdminController/Print', '<i class="menu-icon fa-print"></i><span class="menu-title">Print</span>', 'class="nav-link"');?>
+            <?php echo anchor('AdminController/PrintApplicants', '<i class="menu-icon fa-print"></i><span class="menu-title">Print</span>', 'class="nav-link"');?>
           </li>
           <li class="nav-item">
             <?php echo anchor('AdminController/addRepresentative', '<i class="menu-icon fa-print"></i><span class="menu-title">Add Batch & Representative</span>', 'class="nav-link"');?>
@@ -67,27 +67,20 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-        <h4 class="card-title">Validate User</h4>  
-        <?php echo form_open('AdminController/ValidateApplicants'); ?>
+        <h4 class="card-title">Add Moderator</h4>  
+        <?php echo form_open('AdminController/addModerator'); ?>
             <div class="form-group row">
-                <label for="exampleInputEmail2" class="col-sm-2 col-form-label">Registration ID</label>
+                <label class="col-sm-2 col-form-label">Moderator Name</label>
                 <div class="col-sm-3">
-                <?php echo form_error('regid'); ?>
-                <input type="number" class="form-control" name="regid" id="exampleInputEmail2" placeholder="Regsitartion ID">
+                  <?php echo form_error('name'); ?>
+                  <input type="text" class="form-control" name="name">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="exampleInputPassword2" class="col-sm-2 col-form-label">Transaction ID</label>
+                <label class="col-sm-2 col-form-label">Contact</label>
                 <div class="col-sm-3">
-                <?php echo form_error('trxID'); ?>
-                <input type="text" class="form-control" name="trxID" id="exampleInputPassword2" placeholder="Transaction ID">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="exampleInputEmail2" class="col-sm-2 col-form-label">Amount</label>
-                <div class="col-sm-3">
-                <?php echo form_error('amount'); ?>
-                <input type="number" min="0" class="form-control" name="amount" id="exampleInputEmail2" placeholder="Amount">
+                  <?php echo form_error('contact'); ?>
+                  <input type="text" class="form-control" name="contact">
                 </div>
             </div>
             <button type="submit" class="btn btn-success mr-2">Save</button>
@@ -96,40 +89,26 @@
             <div class="col-lg-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Validated Users</h4>
+                  <h4 class="card-title">Moderator List</h4>
                   <div class="table-responsive">
                     <table class="table table-bordered">
                       <thead>
                         <tr>
                           <th>
-                            Registration ID
-                          </th>
-                          <th>
-                            Name
+                            Moderator Name
                           </th>
                           <th>
                             Contact
                           </th>
-                          <th>
-                          Batch
-                          </th>
-                          <th>
-                            Payable
-                          </th>
-                          <th>
-                            Paid
-                          </th>
-                          <th>
-                            Status
-                          </th>
                         </tr>
                       </thead>
                       <tbody>
-                      
-                        <tr> 
-                        <td class="font-weight-medium"><?php echo $representatives->name?></td>
-                          <td class="font-weight-medium"><?php echo $representatives->contact?></td>
-                        </tr>
+                        <?php foreach($moderators as $mod):?>
+                          <tr> 
+                            <td class="font-weight-medium"><?=$mod->name?></td>
+                            <td class="font-weight-medium"><?=$mod->contact?></td>
+                          </tr>
+                        <?php endforeach;?>
                        
                       </tbody>
                     </table>

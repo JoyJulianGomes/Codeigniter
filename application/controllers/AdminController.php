@@ -50,16 +50,15 @@ class AdminController extends CI_Controller
     {
         $this->load->helper('url');
         $this->load->helper('form');
-        $this->load->model('Participant');
-        $this->load->model('AdminModel');
+        $this->load->model('BatchModel');
 
         if ($this->session->userdata('logged_in')) {
-            $this->data['batches'] = $this->Participant->getBatch();
-            $this->data['table'] = (object) array("regid"=>' ',"name"=>' ', "gender"=>' ', "batch"=>' ', "contact"=>' ');
+            $this->data['batches'] = $this->BatchModel->getBatchList();
+            $this->data['table'] = [(object) array("regid"=>' ',"name"=>' ', "gender"=>' ', "batch"=>' ', "contact"=>' ')];
             $this->load->view('adminPrintView', $this->data);
 
         } else {
-            redirect(base_url() . 'index.php/' . 'AdminController/index');
+            redirect(base_url() . 'AdminController/index');
         }
 
     }
@@ -68,14 +67,14 @@ class AdminController extends CI_Controller
     {
         $this->load->helper('url');
         $this->load->helper('form');
+        $this->load->model('BatchModel');
         $this->load->model('Participant');
-        $this->load->model('AdminModel');
 
         if ($this->session->userdata('logged_in')) {
             
-            $this->data['batches'] = (object) array("batch"=>' '); 
-            $this->data['table'] = $this->AdminModel->getParticipantList($batch);
-            $this->load->view('adminPrintView', $this->data);
+            $data['batches'] = $this->BatchModel->getBatchList(); 
+            $data['table'] = $this->Participant->getParticipantList($batch);
+            $this->load->view('adminPrintView', $data);
 
         } else {
             redirect(base_url() . 'AdminController/index');
@@ -89,7 +88,7 @@ class AdminController extends CI_Controller
         if ($this->session->userdata('logged_in')) {
             $this->load->helper('form');
             $this->load->model('PaymentModel');
-            $this->load->model('AdminModel');
+            $this->load->model('Participant');
 
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<p class="errormsg">', '</p>');
@@ -115,7 +114,7 @@ class AdminController extends CI_Controller
                     $this->update_uesr_paid_amount($payment_data['regid'], $payment_data['amount']);
                 }
 
-                $data["userinfo"] = $this->AdminModel->getParticipantInfo($this->input->post('regid'));
+                $data["userinfo"] = $this->Participant->getParticipantInfo($this->input->post('regid'));
                 $this->load->view('vaildateapplicantView', $data);
             }
         } else {
@@ -147,8 +146,9 @@ class AdminController extends CI_Controller
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<p class="errormsg">', '</p>');
             $this->form_validation->set_rules('batch', 'Batch', 'required');
-            $this->form_validation->set_rules('rep_phone', 'Add amount', 'callback_contact_check');
-
+            if(!empty($this->input->post('rep_phone'))){
+                $this->form_validation->set_rules('rep_phone', 'Add amount', 'callback_contact_check');
+            }
             if ($this->form_validation->run()) {
                 $insertion_data = [
                     "batch" => $this->input->post('batch'),
@@ -172,18 +172,12 @@ class AdminController extends CI_Controller
     {
         // regex for contact number: /^(\+88)?(01)([5-9])([0-9]{8})$/
         // for regex help: https://regexr.com/
-        if($this->input->post('rep_phone')){
-            if (preg_match('/^(\+88)?(01)([5-9])([0-9]{8})$/', $number)) {
-                return true;
-            } else {
-                $this->form_validation->set_message('contact_check', 'Enter a Valid Number');
-                return false;
-            }
-        } else{
+        if (preg_match('/^(\+88)?(01)([5-9])([0-9]{8})$/', $number)) {
             return true;
+        } else {
+            $this->form_validation->set_message('contact_check', 'Enter a Valid Number');
+            return false;
         }
-        
-        
     }
 
     public function addModerator()
@@ -191,27 +185,23 @@ class AdminController extends CI_Controller
         $this->load->helper('url');
         if ($this->session->userdata('logged_in')) {
             $this->load->helper('form');
-            $this->load->model('BatchModel');
+            $this->load->model('ModeratorModel');
 
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<p class="errormsg">', '</p>');
-            $this->form_validation->set_rules('batch', 'Batch', 'required');
-            $this->form_validation->set_rules('rep_phone', 'Add amount', 'callback_contact_check');
+            $this->form_validation->set_rules('name', 'Name', 'required');
+            $this->form_validation->set_rules('contact', 'Contact', 'required|callback_contact_check');
 
             if ($this->form_validation->run()) {
                 $insertion_data = [
-                    "batch" => $this->input->post('batch'),
-                    "rep_name" => ($rep_name = $this->input->post('rep_name'))?$rep_name:'',
-                    "rep_phone" => ($rep_phone = $this->input->post('rep_phone'))?$rep_phone:'',
+                    "name" => $this->input->post('name'),
+                    "contact" => $this->input->post('contact'),
+                    "pass" => '1111',
                 ];
-                $status = $this->BatchModel->add($insertion_data);
-                $data['representatives'] = $this->BatchModel->getBatchInfo();
-                $this->load->view('addModeratorView', $data);
-            } else {
-                $data['representatives'] = $this->BatchModel->getBatchInfo();
-                $this->load->view('addModeratorView', $data);
+                $status = $this->ModeratorModel->add($insertion_data);
             }
-            
+            $data['moderators'] = $this->ModeratorModel->getModeratorList();
+            $this->load->view('addModeratorView', $data);
         } else {
             redirect(base_url() . 'AdminController/index');
         }
@@ -222,27 +212,45 @@ class AdminController extends CI_Controller
         $this->load->helper('url');
         if ($this->session->userdata('logged_in')) {
             $this->load->helper('form');
-            $this->load->model('BatchModel');
+            $this->load->model('BkashModel');
 
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<p class="errormsg">', '</p>');
-            $this->form_validation->set_rules('batch', 'Batch', 'required');
-            $this->form_validation->set_rules('rep_phone', 'Add amount', 'callback_contact_check');
+            $this->form_validation->set_rules('contact', 'Contact', 'required|callback_contact_check');
 
             if ($this->form_validation->run()) {
+                date_default_timezone_set('Asia/Dhaka');
+                $date = date("Y-m-d H:i:s");
                 $insertion_data = [
-                    "batch" => $this->input->post('batch'),
-                    "rep_name" => ($rep_name = $this->input->post('rep_name'))?$rep_name:'',
-                    "rep_phone" => ($rep_phone = $this->input->post('rep_phone'))?$rep_phone:'',
+                    "contact" => $this->input->post('contact'),
+                    "moderator" => $this->sssion->userdata('username'),
+                    'date' => $date,
+                    'status' => 'valid'
                 ];
-                $status = $this->BatchModel->add($insertion_data);
-                $data['representatives'] = $this->BatchModel->getBatchInfo();
-                $this->load->view('changeBKashView', $data);
-            } else {
-                $data['representatives'] = $this->BatchModel->getBatchInfo();
-                $this->load->view('changeBKashView', $data);
+                $status = $this->BkashModel->add($insertion_data);
             }
+            $data['bkash_nos'] = $this->BkashModel->get_all_bkash_no();
+            $this->load->view('changeBKashView', $data);
+        } else {
+            redirect(base_url() . 'AdminController/index');
+        }
+    }
+
+    public function changeBkashStatus($status, $number, $moderator)
+    {
+        $this->load->helper('url');
+        if ($this->session->userdata('logged_in')) {
+            $this->load->model('BkashModel');
             
+            date_default_timezone_set('Asia/Dhaka');
+            $date = date("Y-m-d H:i:s");
+            $update_data = [
+                'status' => ($status === 'valid')?'invalid':'valid',
+                'moderator' => $moderator,
+                'date' => $date,
+            ];
+            $update_status = $this->BkashModel->update_status($number, $update_data);
+            redirect(base_url() . 'AdminController/changeBKash');
         } else {
             redirect(base_url() . 'AdminController/index');
         }

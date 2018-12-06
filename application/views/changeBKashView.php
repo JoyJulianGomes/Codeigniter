@@ -51,7 +51,7 @@
             <?php echo anchor('AdminController/ValidateApplicants', '<i class="menu-icon fa-print"></i><span class="menu-title">Validate Applicants</span>', 'class="nav-link"');?>
           </li>
           <li class="nav-item">
-            <?php echo anchor('AdminController/Print', '<i class="menu-icon fa-print"></i><span class="menu-title">Print</span>', 'class="nav-link"');?>
+            <?php echo anchor('AdminController/PrintApplicants', '<i class="menu-icon fa-print"></i><span class="menu-title">Print</span>', 'class="nav-link"');?>
           </li>
           <li class="nav-item">
             <?php echo anchor('AdminController/addRepresentative', '<i class="menu-icon fa-print"></i><span class="menu-title">Add Batch & Representative</span>', 'class="nav-link"');?>
@@ -67,57 +67,48 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-        <h4 class="card-title">Add Batch Representative</h4>  
-        <?php echo form_open('AdminController/addRepresentative'); ?>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Batch Year</label>
-                <div class="col-sm-3">
-                <?php echo form_error('batch'); ?>
-                <input type="number" class="form-control" name="batch" min=1969 max=2019>
-                </div>
+        <h4 class="card-title">Add bKash Number</h4>  
+        <?php echo form_open('AdminController/changeBKash'); ?>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Contact</label>
+            <div class="col-sm-3">
+              <?php echo form_error('contact'); ?>
+              <input type="text" class="form-control" name="contact">
             </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Representative Name</label>
-                <div class="col-sm-3">
-                <?php echo form_error('rep_name'); ?>
-                <input type="text" class="form-control" name="rep_name" placeholder="not required">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Contact</label>
-                <div class="col-sm-3">
-                <?php echo form_error('rep_phone'); ?>
-                <input type="text" class="form-control" name="rep_phone" placeholder="not required">
-                </div>
-            </div>
+          </div>
             <button type="submit" class="btn btn-success mr-2">Save</button>
         <?php echo form_close(); ?>
             <div class="row">
             <div class="col-lg-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Representative List</h4>
+                  <h4 class="card-title">bKash Numbers <?= $this->session->userdata('username')?></h4>
                   <div class="table-responsive">
                     <table class="table table-bordered">
                       <thead>
                         <tr>
                           <th>
-                          Batch
+                            Number
                           </th>
                           <th>
-                            Representative Name
+                            Status
                           </th>
                           <th>
-                            Contact
+                            Updated By
+                          </th>
+                          <th>
+                            Date
                           </th>
                         </tr>
                       </thead>
                       <tbody>
-                      <?php foreach($representatives as $rep):?>
+                      <?php foreach($bkash_nos as $no):?>
                         <tr> 
-                        <td class="font-weight-medium"><?php echo $rep->batch?></td>
-                        <td class="font-weight-medium"><?php echo $rep->rep_name?></td>
-                        <td class="font-weight-medium"><?php echo $rep->rep_phone?></td>
+                        <td class="font-weight-medium"><?= $no->number?></td>
+                        <td class="font-weight-medium"><?= $no->status?></td>
+                        <td class="font-weight-medium"><?= $no->moderator?></td>
+                        <td class="font-weight-medium"><?= $no->date?></td>
+                        <td class="font-weight-medium"><?php echo anchor('AdminController/changeBkashStatus/'.$no->status.'/'.$no->number.'/'.$this->session->userdata('username'), '<button class="btn btn-success mr-2">Change Status</button>');?></td>
                         </tr>
                         <?php endforeach;?>
                       </tbody>
