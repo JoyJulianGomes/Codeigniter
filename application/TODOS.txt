@@ -1,7 +1,0 @@
-1. DONE $this->Participant->getBatch() return sorted result.
-2. Add 'other' option in relations
-3. Update database to store Other relation
-4. Update costing -> Correct spouse rate add add other charge bKash Charge
-5. Remove Photo required validation.
-6. Add Batch Representative Name in userinfo insert query
-7. Add database error handler. https://www.codeigniter.com/user_guide/database/queries.html#handling-errors
