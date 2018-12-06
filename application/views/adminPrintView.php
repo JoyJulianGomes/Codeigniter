@@ -73,9 +73,21 @@
                 <div class="card-body">
                   <label class="col-sm-3 col-form-label">Batch</label>
                           <div class="col-sm-9">
-                            <select class="form-control">
-                              <option>2009</option>
-                            </select>
+                          <select id="batch" name="batch">
+                            <option <?php echo ($given = set_value('batch'))?'value='.'"'.$given.'"':'value="" disable selected'; ?>> <?php echo ($given = set_value('batch'))?$given:"Choose Value"?></option>
+                            <?php foreach ($batches as $batch):?>
+                            <?php echo '<option value="'.$batch->batch.'">'.$batch->batch.'</option>';?>
+                            <?php endforeach;?>
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                            <script>
+                                $(document).ready(function(){
+                                  $('#batch').change(function(){
+                                    value = $(this).val();
+                                    document.location = "<?= base_url();?>AdminController/LoadTable/"+value;
+                                  });
+                                });
+                            </script>
+                        </select>
                     </div>
                 </div>
               </div>
@@ -90,9 +102,6 @@
                     <table class="table table-bordered">
                       <thead>
                         <tr>
-                          <th>
-                            #
-                          </th>
                           <th>
                             Registration ID
                           </th>
@@ -111,13 +120,12 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td class="font-weight-medium"></td>
-                          <td class="font-weight-medium"></td>
-                          <td class="font-weight-medium"></td>
-                          <td class="font-weight-medium"></td>
-                          <td class="font-weight-medium"></td>
-                          <td class="font-weight-medium"></td>
+                        <tr> 
+                            <td class="font-weight-medium"><?php echo $table->regid?></td>
+                            <td class="font-weight-medium"><?php echo $table->name?></td>
+                            <td class="font-weight-medium"><?php echo $table->gender?></td>
+                            <td class="font-weight-medium"><?php echo $table->batch?></td>
+                            <td class="font-weight-medium"><?php echo $table->contact?></td>
                         </tr>
                       </tbody>
                     </table>
