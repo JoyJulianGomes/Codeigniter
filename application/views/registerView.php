@@ -59,7 +59,7 @@
             </h2>
           </div>
 
-          <?php echo form_open_multipart('formtest/index'); ?>
+          <?php echo form_open_multipart('register/index'); ?>
             <div class="card-body">
               <div style="margin:20px 0px">
                 <h2 class="title" style="color:black">Personal Info</h2>

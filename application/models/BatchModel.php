@@ -6,6 +6,15 @@ class BatchModel extends CI_Model
         parent::__construct();
     }
 
+    public function getBatchList()
+    {
+        $this->db->select("batch");
+        $this->db->from('batchrepresentative');
+        $this->db->order_by('batch', 'DESC');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     public function getBatchInfo()
     {
         $this->db->select("batch, rep_name, rep_phone");

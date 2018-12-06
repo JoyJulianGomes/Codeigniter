@@ -48,12 +48,15 @@
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
                 <div class="card-heading">
-                    <h2 class="title">Information Recorded. Your Registration ID: <?php echo $reg_id;?></h2>
+                    <h2 class="title">Information Recorded</h2>
                 </div>
                 <div class="card-body">
-                    <div style="margin:20px 0px">
-                        <h2 class="title" style="color:black">Cost</h2>
-                    </div>
+                        <div style="margin:20px 0px">
+                            <h2 class="title" style="color:red">Your Registration ID: <?=$reg_id?></h2>
+                        </div>
+                        <div style="margin:20px 0px">
+                            <h2 class="title" style="color:black">Cost</h2>
+                        </div>
                     <div class="form-row row row-space">
                         <div class="col-4"><div class="name">Participant</div></div>
                         <div class="col-4"><div class="name">Count</div></div>
@@ -62,40 +65,63 @@
                     </div>
                     <div class="form-row row row-space">
                         <div class="col-4"><div class="name">Student</div></div>
-                        <div class="col-4"><div class="name">1</div></div>
-                        <div class="col-4"><div class="name">500</div></div>
-                        <div class="col-4"><div class="name">500</div></div>                
+                        <div class="col-4"><div class="name"><?=$student['count']?></div></div>
+                        <div class="col-4"><div class="name"><?=$student['rate']?> </div></div>
+                        <div class="col-4"><div class="name"><?=$student['fee']?>  </div></div>                
                     </div>
                     <div class="form-row row row-space">
                         <div class="col-4"><div class="name">Spouse</div></div>
-                        <div class="col-4"><div class="name"><?php echo $spouse_count?></div></div>
-                        <div class="col-4"><div class="name">800</div></div>
-                        <div class="col-4"><div class="name"><?php echo ($spouse_count * 800)?></div></div>                
+                        <div class="col-4"><div class="name"><?=$spouse['count']?></div></div>
+                        <div class="col-4"><div class="name"><?=$spouse['rate']?> </div></div>
+                        <div class="col-4"><div class="name"><?=$spouse['fee']?>  </div></div>                
                     </div>
                     <div class="form-row row row-space">
                         <div class="col-4"><div class="name">Children</div></div>
-                        <div class="col-4"><div class="name"><?php echo $child_count?></div></div>
-                        <div class="col-4"><div class="name">300</div></div>
-                        <div class="col-4"><div class="name"><?php echo ($child_count * 300)?></div></div>                
+                        <div class="col-4"><div class="name"><?=$child['count']." (below age 3 is free)"?></div></div>
+                        <div class="col-4"><div class="name"><?=$child['rate']?> </div></div>
+                        <div class="col-4"><div class="name"><?=$child['fee']?>  </div></div>                
                     </div>
                     <div class="form-row row row-space">
-                        <div class="col-4"><div class="name"></div>Total</div>
+                        <div class="col-4"><div class="name">Other</div></div>
+                        <div class="col-4"><div class="name"><?=$other['count']?></div></div>
+                        <div class="col-4"><div class="name"><?=$other['rate']?> </div></div>
+                        <div class="col-4"><div class="name"><?=$other['fee']?>  </div></div>                
+                    </div>
+                    <div class="form-row row row-space">
+                        <div class="col-4"><div class="name">Total</div></div>
                         <div class="col-4"><div class="name"></div></div>
                         <div class="col-4"><div class="name"></div></div>
-                        <div class="col-4"><div class="name"><?php echo (500+($spouse_count*800)+($child_count*300))?></div></div>                
+                        <div class="col-4"><div class="name"><?=$total?></div></div>                
+                    </div>                 
+                    <div class="form-row row row-space">
+                        <div class="col-4"><div class="name">bKash Charge</div></div>
+                        <div class="col-4"><div class="name"></div></div>
+                        <div class="col-4"><div class="name"></div></div>
+                        <div class="col-4"><div class="name"><?=$bkash_charge?></div></div>                
+                    </div>
+                    <div class="form-row row row-space">
+                        <div class="col-4"><div class="name">Sub Total</div></div>
+                        <div class="col-4"><div class="name"></div></div>
+                        <div class="col-4"><div class="name"></div></div>
+                        <div class="col-4"><div class="name"><?=$subtotal?></div></div>                
                     </div>
                     <div style="margin:20px 0px">
                         <h2 class="title" style="color:black">Payment Process</h2>
                     </div>
-                        <p class="name">1. Send the amount to 
-                            <?php foreach ($bkash as $value):?>
-                                <?php echo $value->number.", ";?>
-                            <?php endforeach;?> 
-                            by bKash 
-                        </p>
-                        <p class="name">2. Send a SMS to the bKash number mentioning the trasaction ID in the following format:</p>                
-                        <p class="name">Registration: <?php echo $reg_id;?> TrxID: BFH******</p>                
-                        <p class="name">3. A confirmation SMS will be sent to your contact number</p>                
+                        <p class="name">
+                            <ol>
+                                <li>Send the amount to 
+                                    <?php foreach ($bkash as $value):?>
+                                        <?php echo $value->number.", ";?>
+                                    <?php endforeach;?> 
+                                    by bKash 
+                                </li>
+                                <li>Send a SMS to the bKash number mentioning the trasaction ID in the following format:<br>
+                                        <p style="color:red">RegistrationID: <?php echo $reg_id;?> TrxID: BFH******</p>
+                                </li>
+                                <li>A confirmation SMS will be sent to your contact number</li>
+                            </ol>
+                        </p>                
                 </div>
             </div>
         </div>
