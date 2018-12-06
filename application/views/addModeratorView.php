@@ -69,29 +69,29 @@
         <div class="content-wrapper">
         <h4 class="card-title">Validate User</h4>  
         <?php echo form_open('AdminController/ValidateApplicants'); ?>
-                        <div class="form-group row">
-                          <label for="exampleInputEmail2" class="col-sm-2 col-form-label">Registration ID</label>
-                          <div class="col-sm-3">
-                            <?php echo form_error('regid'); ?>
-                            <input type="number" class="form-control" name="regid" id="exampleInputEmail2" placeholder="Regsitartion ID">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label for="exampleInputPassword2" class="col-sm-2 col-form-label">Transaction ID</label>
-                          <div class="col-sm-3">
-                          <?php echo form_error('trxID'); ?>
-                            <input type="text" class="form-control" name="trxID" id="exampleInputPassword2" placeholder="Transaction ID">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label for="exampleInputEmail2" class="col-sm-2 col-form-label">Amount</label>
-                          <div class="col-sm-3">
-                          <?php echo form_error('amount'); ?>
-                            <input type="number" min="0" class="form-control" name="amount" id="exampleInputEmail2" placeholder="Amount">
-                          </div>
-                        </div>
-                        <button type="submit" class="btn btn-success mr-2">Save</button>
-            <?php echo form_close(); ?>
+            <div class="form-group row">
+                <label for="exampleInputEmail2" class="col-sm-2 col-form-label">Registration ID</label>
+                <div class="col-sm-3">
+                <?php echo form_error('regid'); ?>
+                <input type="number" class="form-control" name="regid" id="exampleInputEmail2" placeholder="Regsitartion ID">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleInputPassword2" class="col-sm-2 col-form-label">Transaction ID</label>
+                <div class="col-sm-3">
+                <?php echo form_error('trxID'); ?>
+                <input type="text" class="form-control" name="trxID" id="exampleInputPassword2" placeholder="Transaction ID">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleInputEmail2" class="col-sm-2 col-form-label">Amount</label>
+                <div class="col-sm-3">
+                <?php echo form_error('amount'); ?>
+                <input type="number" min="0" class="form-control" name="amount" id="exampleInputEmail2" placeholder="Amount">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success mr-2">Save</button>
+        <?php echo form_close(); ?>
             <div class="row">
             <div class="col-lg-12 grid-margin">
               <div class="card">
@@ -127,13 +127,8 @@
                       <tbody>
                       
                         <tr> 
-                        <td class="font-weight-medium"><?php echo $userinfo->regid?></td>
-                          <td class="font-weight-medium"><?php echo $userinfo->name?></td>
-                          <td class="font-weight-medium"><?php echo $userinfo->contact?></td>
-                          <td class="font-weight-medium"><?php echo $userinfo->batch?></td>
-                          <td class="font-weight-medium"><?php echo $userinfo->total_amount?></td>
-                          <td class="font-weight-medium"><?php echo $userinfo->paid_amount?></td>
-                          <td class="font-weight-medium"><?php if($userinfo->status===null){echo '';}else{echo ($userinfo->status)?'valid':'invalid';}?></td>
+                        <td class="font-weight-medium"><?php echo $representatives->name?></td>
+                          <td class="font-weight-medium"><?php echo $representatives->contact?></td>
                         </tr>
                        
                       </tbody>

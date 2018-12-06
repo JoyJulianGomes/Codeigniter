@@ -116,8 +116,6 @@ class AdminController extends CI_Controller
         $this->load->helper('url');
         if ($this->session->userdata('logged_in')) {
             $this->load->helper('form');
-            $this->load->model('PaymentModel');
-            $this->load->model('AdminModel');
             $this->load->model('BatchModel');
 
             $this->load->library('form_validation');
@@ -160,5 +158,67 @@ class AdminController extends CI_Controller
         }
         
         
+    }
+
+    public function addModerator()
+    {
+        $this->load->helper('url');
+        if ($this->session->userdata('logged_in')) {
+            $this->load->helper('form');
+            $this->load->model('BatchModel');
+
+            $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters('<p class="errormsg">', '</p>');
+            $this->form_validation->set_rules('batch', 'Batch', 'required');
+            $this->form_validation->set_rules('rep_phone', 'Add amount', 'callback_contact_check');
+
+            if ($this->form_validation->run()) {
+                $insertion_data = [
+                    "batch" => $this->input->post('batch'),
+                    "rep_name" => ($rep_name = $this->input->post('rep_name'))?$rep_name:'',
+                    "rep_phone" => ($rep_phone = $this->input->post('rep_phone'))?$rep_phone:'',
+                ];
+                $status = $this->BatchModel->add($insertion_data);
+                $data['representatives'] = $this->BatchModel->getBatchInfo();
+                $this->load->view('addModeratorView', $data);
+            } else {
+                $data['representatives'] = $this->BatchModel->getBatchInfo();
+                $this->load->view('addModeratorView', $data);
+            }
+            
+        } else {
+            redirect(base_url() . 'AdminController/index');
+        }
+    }
+
+    public function changeBKash()
+    {
+        $this->load->helper('url');
+        if ($this->session->userdata('logged_in')) {
+            $this->load->helper('form');
+            $this->load->model('BatchModel');
+
+            $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters('<p class="errormsg">', '</p>');
+            $this->form_validation->set_rules('batch', 'Batch', 'required');
+            $this->form_validation->set_rules('rep_phone', 'Add amount', 'callback_contact_check');
+
+            if ($this->form_validation->run()) {
+                $insertion_data = [
+                    "batch" => $this->input->post('batch'),
+                    "rep_name" => ($rep_name = $this->input->post('rep_name'))?$rep_name:'',
+                    "rep_phone" => ($rep_phone = $this->input->post('rep_phone'))?$rep_phone:'',
+                ];
+                $status = $this->BatchModel->add($insertion_data);
+                $data['representatives'] = $this->BatchModel->getBatchInfo();
+                $this->load->view('changeBKashView', $data);
+            } else {
+                $data['representatives'] = $this->BatchModel->getBatchInfo();
+                $this->load->view('changeBKashView', $data);
+            }
+            
+        } else {
+            redirect(base_url() . 'AdminController/index');
+        }
     }
 }
