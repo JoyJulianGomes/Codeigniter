@@ -43,7 +43,9 @@ class Register extends CI_Controller
         $this->form_validation->set_error_delimiters('<p class="errormsg">', '</p>');
         $this->form_validation->set_rules('batch', 'Batch Year', 'required');
         $this->form_validation->set_rules('name', 'Name', 'required');
-        $this->form_validation->set_rules('photo', 'Photo', 'callback_photo_check');
+        if(!isset($_FILES['photo'])){
+            $this->form_validation->set_rules('photo', 'Photo', 'callback_photo_check');
+        }
         $this->form_validation->set_rules('father', 'Father\'s  Name', 'required');
         $this->form_validation->set_rules('mother', 'Mother\'s  Name', 'required');
         $this->form_validation->set_rules('gender', 'Gender', 'required|callback_gender_check');
@@ -74,7 +76,7 @@ class Register extends CI_Controller
             $data_from_form = [
                 'userinfo' => [
                     'batch' => $this->input->post('batch'),
-                    //'batch_repname' => $this-BatchModel->getRepName($this->input->post('batch'))
+                    'batch_repname' => $this->BatchModel->getRepName($this->input->post('batch')),
                     'name' => $this->input->post('name'),
                     'photo' => $this->upload->data()['full_path'],
                     'father' => $this->input->post('father'),
@@ -111,7 +113,8 @@ class Register extends CI_Controller
     public function loadpage()
     {
         $this->load->helper(array('form', 'url'));
-
+        $this->load->model("BatchModel");
+        
         $guest_list = [
             ['guest_name'=>'Spouse', 'relation'=>'Spouse', 'age'=>32], 
             ['guest_name'=>'Child-1', 'relation'=>'Child', 'age'=>2], 

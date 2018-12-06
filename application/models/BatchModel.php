@@ -15,6 +15,15 @@ class BatchModel extends CI_Model
         return $query->result();
     }
 
+    public function getRepName($batch)
+    {
+        $this->db->select('rep_name');
+        $this->db->where('batch', $batch);
+        $query = $this->db->get('batchrepresentative');
+        $rst = $query->result();
+        return $rst[0]->rep_name;
+    }
+
     public function getBatchInfo()
     {
         $this->db->select("batch, rep_name, rep_phone");

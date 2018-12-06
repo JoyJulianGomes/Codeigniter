@@ -69,7 +69,7 @@
                 <div class="value">
                   <div class="input-group">
                     <div class="rs-select2 js-select-simple select--no-search">
-                    <?php echo form_error('Batch'); ?>  
+                    <?php echo form_error('batch'); ?>  
                     <select name="batch">
                         <option <?php echo ($given = set_value('batch'))?'value='.'"'.$given.'"':'value="" disable selected'; ?>> <?php echo ($given = set_value('batch'))?$given:"Choose Value"?></option>
                         <?php foreach ($Batch_Nb as $batch):?>
