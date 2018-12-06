@@ -8,6 +8,7 @@
   <title>Admin Panel</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="<?php echo base_url();?>vendor/StarAdmin/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo base_url();?>vendor/StarAdmin/vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="<?php echo base_url();?>vendor/StarAdmin/vendors/css/vendor.bundle.addons.css">
   <!-- endinject -->
@@ -48,19 +49,19 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <?php echo anchor('AdminController/ValidateApplicants', '<i class="menu-icon fa-print"></i><span class="menu-title">Validate Applicants</span>', 'class="nav-link"');?>
+            <?php echo anchor('AdminController/ValidateApplicants', '<i class="menu-icon fa fa-check-square"></i><span class="menu-title">Validate Applicants</span>', 'class="nav-link"');?>
           </li>
           <li class="nav-item">
-            <?php echo anchor('AdminController/PrintApplicants', '<i class="menu-icon fa-print"></i><span class="menu-title">Print</span>', 'class="nav-link"');?>
+            <?php echo anchor('AdminController/PrintApplicants', '<i class="menu-icon fa fa-print"></i><span class="menu-title">Print</span>', 'class="nav-link"');?>
           </li>
           <li class="nav-item">
-            <?php echo anchor('AdminController/addRepresentative', '<i class="menu-icon fa-print"></i><span class="menu-title">Add Batch & Representative</span>', 'class="nav-link"');?>
+            <?php echo anchor('AdminController/addRepresentative', '<i class="menu-icon fa fa-plus-square"></i><span class="menu-title">Add Batch & Representative</span>', 'class="nav-link"');?>
           </li>
           <li class="nav-item">
-            <?php echo anchor('AdminController/addModerator', '<i class="menu-icon fa-print"></i><span class="menu-title">Add Moderator</span>', 'class="nav-link"');?>
+            <?php echo anchor('AdminController/addModerator', '<i class="menu-icon fa fa-user"></i><span class="menu-title">Add Moderator</span>', 'class="nav-link"');?>
           </li>
           <li class="nav-item">
-            <?php echo anchor('AdminController/changeBKash', '<i class="menu-icon fa-print"></i><span class="menu-title">Add/Update bKash Number</span>', 'class="nav-link"');?>
+            <?php echo anchor('AdminController/changeBKash', '<i class="menu-icon fa fa-edit"></i><span class="menu-title">Add/Update bKash Number</span>', 'class="nav-link"');?>
           </li>
         </ul>
       </nav>
