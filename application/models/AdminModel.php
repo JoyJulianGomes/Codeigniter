@@ -15,5 +15,15 @@ class AdminModel extends CI_Model
         $rst = $query->result();
         return $rst[0];
     }
+    
+    public function getParticipantList($btch)
+    {
+        $this->db->select("regid, name, gender, batch, contact");
+        $this->db->where("batch", $btch);
+        $this->db->from('userinfo');
+        $query = $this->db->get();
+        $rst = $query->result();
+        return $rst[0];
+    }
 
 }

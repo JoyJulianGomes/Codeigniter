@@ -41,12 +41,37 @@ class AdminController extends CI_Controller
         redirect(base_url() . 'index.php/' . 'AdminController/index');
     }
 
-    public function print() 
+    public function PrintApplicants() 
     {
         $this->load->helper('url');
+        $this->load->helper('form');
+        $this->load->model('Participant');
+        $this->load->model('AdminModel');
 
         if ($this->session->userdata('logged_in')) {
-            $this->load->view('adminPrintView');
+            $this->data['batches'] = $this->Participant->getBatch();
+            $this->data['table'] = (object) array("regid"=>' ',"name"=>' ', "gender"=>' ', "batch"=>' ', "contact"=>' ');
+            $this->load->view('adminPrintView', $this->data);
+
+        } else {
+            redirect(base_url() . 'index.php/' . 'AdminController/index');
+        }
+
+    }
+
+    public function LoadTable($batch = ' ') 
+    {
+        $this->load->helper('url');
+        $this->load->helper('form');
+        $this->load->model('Participant');
+        $this->load->model('AdminModel');
+
+        if ($this->session->userdata('logged_in')) {
+            
+            $this->data['batches'] = (object) array("batch"=>' '); 
+            $this->data['table'] = $this->AdminModel->getParticipantList($batch);
+            $this->load->view('adminPrintView', $this->data);
+
         } else {
             redirect(base_url() . 'index.php/' . 'AdminController/index');
         }
