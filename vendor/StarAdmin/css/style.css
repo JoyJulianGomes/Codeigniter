@@ -13875,6 +13875,20 @@ input:focus {
   -webkit-transition: background 0.25s ease;
   -moz-transition: background 0.25s ease;
   -ms-transition: background 0.25s ease; }
+.card-gradient-1 {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(120deg, #009ce4, #85a86e);
+  transition: background 0.25s ease;
+  -webkit-transition: background 0.25s ease;
+  -moz-transition: background 0.25s ease;
+  -ms-transition: background 0.25s ease; }
+.card-gradient-2 {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(0deg, #687ab8, #6dd0dd);
+  transition: background 0.25s ease;
+  -webkit-transition: background 0.25s ease;
+  -moz-transition: background 0.25s ease;
+  -ms-transition: background 0.25s ease; }
   .navbar.default-layout .navbar-brand-wrapper {
     transition: width 0.25s ease, background 0.25s ease;
     -webkit-transition: width 0.25s ease, background 0.25s ease;

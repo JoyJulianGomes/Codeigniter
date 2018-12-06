@@ -24,22 +24,15 @@
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-      <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-        <a class="navbar-brand brand-logo" href="index.html">
-          <img src="<?php echo base_url();?>vendor/logo.png" alt="logo" />
-        </a>
-        <a class="navbar-brand brand-logo-mini" href="index.html">
-          <img src="images/logo-mini.svg" alt="logo" />
-        </a>
-      </div>
+      <div><!-- DO NO REMOVE THIS EMPTY DIV; LOGOUT BUTTON WILL FALLBACK TO LEFT SIDE--></div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item dropdown d-none d-xl-inline-block">
-              <span class="profile-text">Hello, <?php echo $this->session->userdata('username');?>!</span>  
-              <span style="color:red"><?php echo anchor('AdminController/logout', 'Logout', 'style="color:red"');?></span>
-            </a>
-          </li>
+          <li class="nav-item"><span class="profile-text">Hello, <?php echo $this->session->userdata('username');?>!</span></li>
+          <li class="nav-item dropdown"><span style="color:red"><?php echo anchor('AdminController/logout', 'Logout', 'style="color:red"');?></span></li>
         </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
       </div>
     </nav>
     <!-- partial -->
@@ -68,33 +61,34 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-        <div class="row">
+          <div class="row">
             <div class="col-lg-12 grid-margin">
-              <div class="card">
+              <div class="card card-gradient-2">
                 <div class="card-body">
                   <label class="col-sm-3 col-form-label">Batch</label>
-                          <div class="col-sm-9">
-                          <select id="batch" name="batch">
-                            <option <?php echo ($given = set_value('batch'))?'value='.'"'.$given.'"':'value="" disable selected'; ?>> <?php echo ($given = set_value('batch'))?$given:"Choose Value"?></option>
-                            <?php foreach ($batches as $batch):?>
-                            <?php echo '<option value="'.$batch->batch.'">'.$batch->batch.'</option>';?>
-                            <?php endforeach;?>
-                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                            <script>
-                                $(document).ready(function(){
-                                  $('#batch').change(function(){
-                                    value = $(this).val();
-                                    document.location = "<?= base_url();?>AdminController/LoadTable/"+value;
-                                  });
+                    <div class="col-sm-9">
+                      <select id="batch" name="batch">
+                          <option <?php echo ($given = set_value('batch'))?'value='.'"'.$given.'"':'value="" disable selected'; ?>> <?php echo ($given = set_value('batch'))?$given:"Choose Value"?></option>
+                          <?php foreach ($batches as $batch):?>
+                          <?php echo '<option value="'.$batch->batch.'">'.$batch->batch.'</option>';?>
+                          <?php endforeach;?>
+                          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                          <script>
+                              $(document).ready(function(){
+                                $('#batch').change(function(){
+                                  value = $(this).val();
+                                  document.location = "<?= base_url();?>AdminController/LoadTable/"+value;
                                 });
-                            </script>
-                        </select>
+                              });
+                          </script>
+                      </select>
                     </div>
                 </div>
               </div>
             </div>
-          </div>   
-        <div class="row">
+          </div>
+
+          <div class="row">
             <div class="col-lg-12 grid-margin">
               <div class="card">
                 <div class="card-body">
@@ -136,9 +130,10 @@
                 </div>
               </div>
             </div>
-          </div>  
+          </div>
+
           <div class="row">
-                    <button type="button" class="btn btn-success btn-fw">Print</button>
+            <button type="button" class="btn btn-success btn-fw">Print</button>
           </div>  
         </div>
         <!-- content-wrapper ends -->
