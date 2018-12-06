@@ -222,8 +222,8 @@ class AdminController extends CI_Controller
                 date_default_timezone_set('Asia/Dhaka');
                 $date = date("Y-m-d H:i:s");
                 $insertion_data = [
-                    "contact" => $this->input->post('contact'),
-                    "moderator" => $this->sssion->userdata('username'),
+                    "number" => $this->input->post('contact'),
+                    "moderator" => $this->session->userdata('username'),
                     'date' => $date,
                     'status' => 'valid'
                 ];

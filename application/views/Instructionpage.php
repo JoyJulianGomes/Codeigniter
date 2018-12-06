@@ -30,7 +30,7 @@
     <!-- Vendor CSS -->
     <link href="<?php echo base_url();?>vendor/select2/select2.min.css" rel="stylesheet" media="all" />
     <link
-      href="vendor/datepicker/daterangepicker.css"
+      href="<?=base_url()?>vendor/datepicker/daterangepicker.css"
       rel="stylesheet"
       media="all"
     />
@@ -51,63 +51,70 @@
                     <h2 class="title">Information Recorded</h2>
                 </div>
                 <div class="card-body">
-                        <div style="margin:20px 0px">
-                            <h2 class="title" style="color:red">Your Registration ID: <?=$reg_id?></h2>
-                        </div>
-                        <div style="margin:20px 0px">
-                            <h2 class="title" style="color:black">Cost</h2>
-                        </div>
-                    <div class="form-row row row-space">
-                        <div class="col-4"><div class="name">Participant</div></div>
-                        <div class="col-4"><div class="name">Count</div></div>
-                        <div class="col-4"><div class="name">Rate</div></div>
-                        <div class="col-4"><div class="name">Fee</div></div>                
+                    <div style="margin:20px 0px">
+                        <h2 class="title" style="color:red">Your Registration ID: <?=$reg_id?></h2>
                     </div>
-                    <div class="form-row row row-space">
-                        <div class="col-4"><div class="name">Student</div></div>
-                        <div class="col-4"><div class="name"><?=$student['count']?></div></div>
-                        <div class="col-4"><div class="name"><?=$student['rate']?> </div></div>
-                        <div class="col-4"><div class="name"><?=$student['fee']?>  </div></div>                
+                    <div style="margin:20px 0px">
+                        <h2 class="title" style="color:black">Cost</h2>
                     </div>
-                    <div class="form-row row row-space">
-                        <div class="col-4"><div class="name">Spouse</div></div>
-                        <div class="col-4"><div class="name"><?=$spouse['count']?></div></div>
-                        <div class="col-4"><div class="name"><?=$spouse['rate']?> </div></div>
-                        <div class="col-4"><div class="name"><?=$spouse['fee']?>  </div></div>                
-                    </div>
-                    <div class="form-row row row-space">
-                        <div class="col-4"><div class="name">Children</div></div>
-                        <div class="col-4"><div class="name"><?=$child['count']." (below age 3 is free)"?></div></div>
-                        <div class="col-4"><div class="name"><?=$child['rate']?> </div></div>
-                        <div class="col-4"><div class="name"><?=$child['fee']?>  </div></div>                
-                    </div>
-                    <div class="form-row row row-space">
-                        <div class="col-4"><div class="name">Other</div></div>
-                        <div class="col-4"><div class="name"><?=$other['count']?></div></div>
-                        <div class="col-4"><div class="name"><?=$other['rate']?> </div></div>
-                        <div class="col-4"><div class="name"><?=$other['fee']?>  </div></div>                
-                    </div>
-                    <div class="form-row row row-space">
-                        <div class="col-4"><div class="name">Total</div></div>
-                        <div class="col-4"><div class="name"></div></div>
-                        <div class="col-4"><div class="name"></div></div>
-                        <div class="col-4"><div class="name"><?=$total?></div></div>                
-                    </div>                 
-                    <div class="form-row row row-space">
-                        <div class="col-4"><div class="name">bKash Charge</div></div>
-                        <div class="col-4"><div class="name"></div></div>
-                        <div class="col-4"><div class="name"></div></div>
-                        <div class="col-4"><div class="name"><?=$bkash_charge?></div></div>                
-                    </div>
-                    <div class="form-row row row-space">
-                        <div class="col-4"><div class="name">Sub Total</div></div>
-                        <div class="col-4"><div class="name"></div></div>
-                        <div class="col-4"><div class="name"></div></div>
-                        <div class="col-4"><div class="name"><?=$subtotal?></div></div>                
-                    </div>
+                    <table class="ins-table">
+                        <thead>
+                            <tr>
+                                <th>Participant</th>
+                                <th>Count</th>
+                                <th>Rate</th>
+                                <th>Fee</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Student</td>
+                                <td><?=$student['count']?></td>
+                                <td><?=$student['rate']?> </td>
+                                <td><?=$student['fee']?>  </td>
+                            </tr>
+                            <tr>
+                                <td>Spouse</td>
+                                <td><?=$spouse['count']?></td>
+                                <td><?=$spouse['rate']?> </td>
+                                <td><?=$spouse['fee']?>  </td>
+                            </tr>
+                            <tr>
+                                <td>Children<br>(age below 3 is free)</td>
+                                <td><?=$child['count']?></td>
+                                <td><?=$child['rate']?> </td>
+                                <td><?=$child['fee']?>  </td>
+                            </tr>
+                            <tr>
+                                <td>Other</td>
+                                <td><?=$other['count']?></td>
+                                <td><?=$other['rate']?> </td>
+                                <td><?=$other['fee']?>  </td>
+                            </tr>
+                            <tr>
+                                <td>Sub Total</td>
+                                <td></td>
+                                <td></td>
+                                <td><?=$total?></td>
+                            </tr>
+                            <tr>
+                                <td>bKash Charge</td>
+                                <td></td>
+                                <td></td>
+                                <td><?=$bkash_charge?></td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td></td>
+                                <td></td>
+                                <td><?=$subtotal?></td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <div style="margin:20px 0px">
                         <h2 class="title" style="color:black">Payment Process</h2>
                     </div>
+                    <div>
                         <p class="name">
                             <ol>
                                 <li>Send the amount to 
@@ -121,7 +128,8 @@
                                 </li>
                                 <li>A confirmation SMS will be sent to your contact number</li>
                             </ol>
-                        </p>                
+                        </p>     
+                    </div>           
                 </div>
             </div>
         </div>
