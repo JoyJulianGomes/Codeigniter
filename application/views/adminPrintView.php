@@ -53,6 +53,15 @@
           <li class="nav-item">
             <?php echo anchor('AdminController/Print', '<i class="menu-icon fa-print"></i><span class="menu-title">Print</span>', 'class="nav-link"');?>
           </li>
+          <li class="nav-item">
+            <?php echo anchor('AdminController/addRepresentative', '<i class="menu-icon fa-print"></i><span class="menu-title">Add Batch & Representative</span>', 'class="nav-link"');?>
+          </li>
+          <li class="nav-item">
+            <?php echo anchor('AdminController/addModerator', '<i class="menu-icon fa-print"></i><span class="menu-title">Add Moderator</span>', 'class="nav-link"');?>
+          </li>
+          <li class="nav-item">
+            <?php echo anchor('AdminController/changeBKash', '<i class="menu-icon fa-print"></i><span class="menu-title">Add/Update bKash Number</span>', 'class="nav-link"');?>
+          </li>
         </ul>
       </nav>
       <!-- partial -->

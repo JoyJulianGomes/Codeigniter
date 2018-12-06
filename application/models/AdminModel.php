@@ -8,7 +8,7 @@ class AdminModel extends CI_Model
 
     public function getParticipantInfo($rid)
     {
-        $this->db->select("regid,name, batch, total_amount, paid_amount, status");
+        $this->db->select("regid,name, contact, batch, total_amount, paid_amount, status");
         $this->db->where("regid", $rid);
         $this->db->from('userinfo');
         $query = $this->db->get();

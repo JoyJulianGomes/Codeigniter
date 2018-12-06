@@ -55,7 +55,7 @@
           </li>
           <li class="nav-item">
             <?php echo anchor('AdminController/addRepresentative', '<i class="menu-icon fa-print"></i><span class="menu-title">Add Batch & Representative</span>', 'class="nav-link"');?>
-          </li>
+          </li>          
           <li class="nav-item">
             <?php echo anchor('AdminController/addModerator', '<i class="menu-icon fa-print"></i><span class="menu-title">Add Moderator</span>', 'class="nav-link"');?>
           </li>
@@ -67,75 +67,59 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-        <h4 class="card-title">Validate User</h4>  
-        <?php echo form_open('AdminController/ValidateApplicants'); ?>
-                        <div class="form-group row">
-                          <label for="exampleInputEmail2" class="col-sm-2 col-form-label">Registration ID</label>
-                          <div class="col-sm-3">
-                            <?php echo form_error('regid'); ?>
-                            <input type="number" class="form-control" name="regid" id="exampleInputEmail2" placeholder="Regsitartion ID">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label for="exampleInputPassword2" class="col-sm-2 col-form-label">Transaction ID</label>
-                          <div class="col-sm-3">
-                          <?php echo form_error('trxID'); ?>
-                            <input type="text" class="form-control" name="trxID" id="exampleInputPassword2" placeholder="Transaction ID">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label for="exampleInputEmail2" class="col-sm-2 col-form-label">Amount</label>
-                          <div class="col-sm-3">
-                          <?php echo form_error('amount'); ?>
-                            <input type="number" min="0" class="form-control" name="amount" id="exampleInputEmail2" placeholder="Amount">
-                          </div>
-                        </div>
-                        <button type="submit" class="btn btn-success mr-2">Save</button>
-            <?php echo form_close(); ?>
+        <h4 class="card-title">Add Batch Representative</h4>  
+        <?php echo form_open('AdminController/addRepresentative'); ?>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Batch Year</label>
+                <div class="col-sm-3">
+                <?php echo form_error('batch'); ?>
+                <input type="number" class="form-control" name="batch" min=1969 max=2019>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Representative Name</label>
+                <div class="col-sm-3">
+                <?php echo form_error('rep_name'); ?>
+                <input type="text" class="form-control" name="rep_name" placeholder="not required">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Contact</label>
+                <div class="col-sm-3">
+                <?php echo form_error('rep_phone'); ?>
+                <input type="text" class="form-control" name="rep_phone" placeholder="not required">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success mr-2">Save</button>
+        <?php echo form_close(); ?>
             <div class="row">
             <div class="col-lg-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Validated Users</h4>
+                  <h4 class="card-title">Representative List</h4>
                   <div class="table-responsive">
                     <table class="table table-bordered">
                       <thead>
                         <tr>
                           <th>
-                            Registration ID
+                          Batch
                           </th>
                           <th>
-                            Name
+                            Representative Name
                           </th>
                           <th>
                             Contact
                           </th>
-                          <th>
-                          Batch
-                          </th>
-                          <th>
-                            Payable
-                          </th>
-                          <th>
-                            Paid
-                          </th>
-                          <th>
-                            Status
-                          </th>
                         </tr>
                       </thead>
                       <tbody>
-                      
+                      <?php foreach($representatives as $rep):?>
                         <tr> 
-                        <td class="font-weight-medium"><?php echo $userinfo->regid?></td>
-                          <td class="font-weight-medium"><?php echo $userinfo->name?></td>
-                          <td class="font-weight-medium"><?php echo $userinfo->contact?></td>
-                          <td class="font-weight-medium"><?php echo $userinfo->batch?></td>
-                          <td class="font-weight-medium"><?php echo $userinfo->total_amount?></td>
-                          <td class="font-weight-medium"><?php echo $userinfo->paid_amount?></td>
-                          <td class="font-weight-medium"><?php if($userinfo->status===null){echo '';}else{echo ($userinfo->status)?'valid':'invalid';}?></td>
+                        <td class="font-weight-medium"><?php echo $rep->batch?></td>
+                        <td class="font-weight-medium"><?php echo $rep->rep_name?></td>
+                        <td class="font-weight-medium"><?php echo $rep->rep_phone?></td>
                         </tr>
-                       
+                        <?php endforeach;?>
                       </tbody>
                     </table>
                   </div>

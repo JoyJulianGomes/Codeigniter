@@ -25,16 +25,4 @@ class ModeratorModel extends CI_Model
         $result = $query->result();
         return $result;
     }
-
-    public function add()
-    {
-        $data = array(
-            'guest_name' => "someone",
-            'relation' => "spouse",
-            'age' => 32,
-            'reg_id' => 2,
-        );
-
-        return $this->db->insert("guests", $data);
-    }
 }
