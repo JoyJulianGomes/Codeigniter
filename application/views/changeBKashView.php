@@ -56,6 +56,9 @@
           <li class="nav-item">
             <?php echo anchor('AdminController/changeBKash', '<i class="menu-icon fa fa-edit"></i><span class="menu-title">Add/Update bKash Number</span>', 'class="nav-link"');?>
           </li>
+          <li class="nav-item">
+            <?php echo anchor('AdminController/resetPassword', '<i class="menu-icon fa fa-unlock-alt"></i><span class="menu-title">Reset Password</span>', 'class="nav-link"');?>
+          </li>
         </ul>
       </nav>
       <!-- partial -->

@@ -56,6 +56,9 @@
           <li class="nav-item">
             <?php echo anchor('AdminController/changeBKash', '<i class="menu-icon fa fa-edit"></i><span class="menu-title">Add/Update bKash Number</span>', 'class="nav-link"');?>
           </li>
+          <li class="nav-item">
+            <?php echo anchor('AdminController/resetPassword', '<i class="menu-icon fa fa-unlock-alt"></i><span class="menu-title">Reset Password</span>', 'class="nav-link"');?>
+          </li>
         </ul>
       </nav>
       <!-- partial -->
@@ -81,11 +84,11 @@
                           <div class="col-sm-1"><button type="submit" class="btn btn-success mr-2">Save</button></div>
                       </div>
                   <?php echo form_close(); ?>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-            <div class="row">
+          <div class="row">
             <div class="col-lg-12 grid-margin">
               <div class="card">
                 <div class="card-body">
@@ -109,7 +112,6 @@
                             <td class="font-weight-medium"><?=$mod->contact?></td>
                           </tr>
                         <?php endforeach;?>
-                       
                       </tbody>
                     </table>
                   </div>

@@ -27,9 +27,6 @@ class BkashModel extends CI_Model
     
     public function update_status($number, $update_data)
     {
-        print_r($update_data);
-        print_r($number);
-
         $this->db->where('number', $number);
         return $this->db->update('bkash_no', $update_data);
     }

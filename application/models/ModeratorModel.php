@@ -41,4 +41,20 @@ class ModeratorModel extends CI_Model
         $id = $this->db->insert_id();
         return $id;
     }
+
+    public function getpass($username)
+    {
+        $this->db->select('pass');
+        $this->db->where('name', $username);
+        $query = $this->db->get('moderator');
+        $rst = $query->result();
+        
+        return $rst[0];
+    }
+
+    public function update($username, $update_data)
+    {
+        $this->db->where('name', $username);
+        return $this->db->update('moderator', $update_data);
+    }
 }

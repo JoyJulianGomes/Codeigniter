@@ -255,4 +255,50 @@ class AdminController extends CI_Controller
             redirect(base_url() . 'AdminController/index');
         }
     }
+
+    public function resetPassword()
+    {
+        $this->load->helper('url');
+        if ($this->session->userdata('logged_in')) {
+            $this->load->helper('form');
+            $this->load->model('ModeratorModel');
+
+            $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters('<p class="errormsg">', '</p>');
+            $this->form_validation->set_rules('password', 'Old Password', 'required|callback_old_pass_match');
+            $this->form_validation->set_rules('npass', 'New Password', 'required');
+            $this->form_validation->set_rules('cpass', 'Confirm Password', 'required|callback_pass_match');
+//Confirm password must match new password
+            $data = [];
+            if ($this->form_validation->run()) {
+                $update_data = [
+                    'pass' => $this->input->post('npass')
+                ];
+                $status = $this->ModeratorModel->update($this->session->userdata('username'), $update_data);
+                $data['status'] = ($status)?'Password Updated':'Could not update password';
+            }
+            $this->load->view('resetPasswordView', $data);
+        }
+    }
+
+    public function old_pass_match($password)
+    {
+        $correct_pass_result = $this->ModeratorModel->getpass($this->session->userdata('username'));
+        if($correct_pass_result->pass == $password){
+            return true;
+        } else {
+            $this->form_validation->set_message('old_pass_match', 'Old Password Is Incorrect');
+            return false;
+        }
+    }
+
+    public function pass_match()
+    {
+        if($this->input->post('cpass')==$this->input->post('npass')){
+            return true;
+        } else {
+            $this->form_validation->set_message('pass_match', 'Password and Confirm Password do not match');
+            return false;
+        }
+    }
 }

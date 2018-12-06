@@ -65,74 +65,40 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-            <div class="col-md-12 grid-margin stretch-card">
+            <div class="col-lg-12 grid-margin stretch-card">
               <div class="card card-gradient-2">
                 <div class="card-body">
-                  <h4 class="card-title">Validate User</h4>
-                  <?php echo form_open('AdminController/ValidateApplicants'); ?>
-                    <div class="form-group row">
-                      <label for="exampleInputEmail2" class="col-sm-2 col-form-label">Registration ID</label>
-                      <div class="col-sm-3">
-                        <?php echo form_error('regid'); ?>
-                        <input type="number" class="form-control" name="regid" id="exampleInputEmail2" placeholder="Regsitartion ID">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="exampleInputPassword2" class="col-sm-2 col-form-label">Transaction ID</label>
-                      <div class="col-sm-3">
-                        <?php echo form_error('trxID'); ?>
-                        <input type="text" class="form-control" name="trxID" id="exampleInputPassword2" placeholder="Transaction ID">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="exampleInputEmail2" class="col-sm-2 col-form-label">Amount</label>
-                      <div class="col-sm-3">
-                        <?php echo form_error('amount'); ?>
-                        <input type="number" min="0" class="form-control" name="amount" id="exampleInputEmail2" placeholder="Amount">
-                      </div>
-                    </div>
-                    <button type="submit" class="btn btn-success mr-2">Save</button>
-                  <?php echo form_close(); ?>
+                    <h4 class="card-title">Reset Password</h4>  
+                    <?php echo form_open('AdminController/resetPassword', ['class'=>'form-sample']); ?>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label">Old Password</label>
+                            <div class="col-sm-4">
+                                <?php echo form_error('password'); ?>
+                                <input type="password" class="form-control" name="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label">New Password</label>
+                            <div class="col-sm-4">
+                                <?php echo form_error('npass'); ?>
+                                <input type="password" class="form-control" name="npass">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label">Confirm Password</label>
+                            <div class="col-sm-4">
+                                <?php echo form_error('cpass'); ?>
+                                <input type="password" class="form-control" name="cpass">
+                            </div>
+                        </div>
+                            
+                        <div class="col-sm-1"><button type="submit" class="btn btn-success mr-2">Save</button></div>
+                    <?php echo form_close(); ?>
+                    <?=(isset($status))?$status:''?>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="row">
-            <div class="col-lg-12 grid-margin">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Validated Users</h4>
-                  <div class="table-responsive">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Registration ID</th>
-                          <th>Name</th>
-                          <th>Contact</th>
-                          <th>Batch</th>
-                          <th>Payable</th>
-                          <th>Paid</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr> 
-                          <td class="font-weight-medium"><?php echo $userinfo->regid?></td>
-                          <td class="font-weight-medium"><?php echo $userinfo->name?></td>
-                          <td class="font-weight-medium"><?php echo $userinfo->contact?></td>
-                          <td class="font-weight-medium"><?php echo $userinfo->batch?></td>
-                          <td class="font-weight-medium"><?php echo $userinfo->total_amount?></td>
-                          <td class="font-weight-medium"><?php echo $userinfo->paid_amount?></td>
-                          <td class="font-weight-medium"><?php if($userinfo->status===null){echo '';}else{echo ($userinfo->status)?'valid':'invalid';}?></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>  
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
