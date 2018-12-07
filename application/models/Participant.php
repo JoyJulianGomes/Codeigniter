@@ -57,4 +57,13 @@ class Participant extends CI_Model
         $rst = $query->result();
         return $rst;
     }
+
+    public function getParticipantListForPrinting($batch,$status='valid')
+    {
+        $this->db->select("regid, batch, batch_repname, name, father, mother, gender, mstat, occupation, designation, contact, total_amount, paid_amount, spouse_count, child_count, other_count");
+        $this->db->where(array("batch" => $batch, "status"=>($status =='valid')?1:0));
+        $query = $this->db->get("userinfo");
+        $rst = $query->result();
+        return $rst;
+    }
 }

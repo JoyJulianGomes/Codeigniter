@@ -46,34 +46,61 @@ class AdminController extends CI_Controller
         redirect(base_url() . 'AdminController/index');
     }
 
-    public function PrintApplicants() 
+    public function print_pdf_list($batch, $status)
     {
         $this->load->helper('url');
         $this->load->helper('form');
-        $this->load->model('BatchModel');
 
         if ($this->session->userdata('logged_in')) {
-            $this->data['batches'] = $this->BatchModel->getBatchList();
-            $this->data['table'] = [(object) array("regid"=>' ',"name"=>' ', "gender"=>' ', "batch"=>' ', "contact"=>' ')];
-            $this->load->view('adminPrintView', $this->data);
-
+            $this->load->helper('pdf_helper');
+            $this->load->model('Participant');
+            $data = $this->Participant->getParticipantListForPrinting($batch, $status);
+            
+            $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+            $pdf->SetCreator(PDF_CREATOR);
+            $pdf->SetAuthor('Online');
+            $pdf->SetTitle($status.' Applicants Batch-'.$batch);
+            $pdf->SetSubject('Registration');
+            $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+            $pdf->SetHeaderData('', 0, 'List of '.$status.' Registration Batch-'.$batch, '', array(0,0,0), array(0,0,0)); //second array defines color of horizontal line for header
+            $pdf->setFooterData(array(0,64,0), array(0,64,128));
+            $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+            $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+            $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+            $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+            $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+            $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+            $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+            $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+            $pdf->setFontSubsetting(true);
+            $pdf->SetFont('dejavusans', '', 8, '', true);
+            $pdf->setPageOrientation('L');
+            $pdf->AddPage();
+            $html = $this->load->view('print_list.php', ['data' => $data], true);
+            $pdf->writeHTML($html, true, false, true, false, '');
+            $pdf->Output($status.' Applicants Batch-'.$batch.'.pdf', 'I');
         } else {
             redirect(base_url() . 'AdminController/index');
         }
 
+
     }
 
-    public function LoadTable($batch = ' ') 
+    public function PrintApplicants($batch = null, $status='valid') 
     {
         $this->load->helper('url');
         $this->load->helper('form');
-        $this->load->model('BatchModel');
-        $this->load->model('Participant');
-
+        
         if ($this->session->userdata('logged_in')) {
-            
-            $data['batches'] = $this->BatchModel->getBatchList(); 
-            $data['table'] = $this->Participant->getParticipantList($batch);
+            $this->load->model('BatchModel');
+            $this->load->model('Participant');
+
+            $data['selectedBatch'] = $batch;
+            $data['selectedStatus'] = $status;
+            $data['batches'] = $this->BatchModel->getBatchList();
+            if($batch != null){
+                $data['table'] = $this->Participant->getParticipantListForPrinting($batch, $status);
+            }
             $this->load->view('adminPrintView', $data);
 
         } else {
@@ -268,7 +295,7 @@ class AdminController extends CI_Controller
             $this->form_validation->set_rules('password', 'Old Password', 'required|callback_old_pass_match');
             $this->form_validation->set_rules('npass', 'New Password', 'required');
             $this->form_validation->set_rules('cpass', 'Confirm Password', 'required|callback_pass_match');
-//Confirm password must match new password
+
             $data = [];
             if ($this->form_validation->run()) {
                 $update_data = [

@@ -24,7 +24,7 @@
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-      <div><!-- DO NO REMOVE THIS EMPTY DIV; LOGOUT BUTTON WILL FALLBACK TO LEFT SIDE--></div>
+      <div><!-- DO NOT REMOVE THIS EMPTY DIV; LOGOUT BUTTON WILL FALLBACK TO LEFT SIDE--></div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item"><span class="profile-text">Hello, <?php echo $this->session->userdata('username');?>!</span></li>
@@ -64,69 +64,107 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">
-            <div class="col-lg-12 grid-margin">
+          
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
               <div class="card card-gradient-2">
                 <div class="card-body">
-                  <label class="col-sm-3 col-form-label">Batch</label>
-                    <div class="col-sm-9">
-                      <select id="batch" name="batch">
-                          <option <?php echo ($given = set_value('batch'))?'value='.'"'.$given.'"':'value="" disable selected'; ?>> <?php echo ($given = set_value('batch'))?$given:"Choose Value"?></option>
-                          <?php foreach ($batches as $batch):?>
-                          <?php echo '<option value="'.$batch->batch.'">'.$batch->batch.'</option>';?>
-                          <?php endforeach;?>
-                          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                  <h4 class="card-title">Filter Data</h4>  
+                  
+                      <div class="form-group row">
+                          <label class="col-sm-1 col-form-label">Batch</label>
+                          <div class="col-sm-2">
+                            <select class="form-control form-control-sm" id="batch" name="batch">
+                              <option disable selected>Choose Value</option>
+                              <?php foreach ($batches as $batch):?>
+                              <?php echo '<option value="'.$batch->batch.'">'.$batch->batch.'</option>';?>
+                              <?php endforeach;?>
+                            </select>
+                          </div>
+                          <label class="col-sm-1 col-form-label">Status</label>
+                          <div class="col-sm-2">
+                            <select class="form-control form-control-sm" id="status" name="status">
+                              <option selected>valid</option>
+                              <option>invalid</option>
+                            </select>
+                          </div>
                           <script>
-                              $(document).ready(function(){
-                                $('#batch').change(function(){
-                                  value = $(this).val();
-                                  document.location = "<?= base_url();?>AdminController/LoadTable/"+value;
-                                });
-                              });
+                            function getuserdata(){ 
+                              let batch = document.getElementById('batch').value;
+                              let status = document.getElementById('status').value;
+                              document.location = "<?= base_url()?>"+"AdminController/PrintApplicants/"+batch+"/"+status;
+                            }
                           </script>
-                      </select>
-                    </div>
+                          <div class="col-sm-1"><button class="btn btn-success mr-2" onclick="getuserdata()">View</button></div>
+                      </div>
                 </div>
               </div>
             </div>
           </div>
+          
+          
+
 
           <div class="row">
             <div class="col-lg-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">User Info</h4>
+                  <div class="form-group row col-sm-12">
+                    <div class="col-sm-4"><h4 class="card-title">User Info</h4></div>
+                    <div class="col-sm-3"><h4 class="card-title">Batch: <?=$selectedBatch?></h4></div>
+                    <div class="col-sm-3"><h4 class="card-title">Status: <?=$selectedStatus?></h4></div>
+                    
+                    <script>
+                      function pdf(){ 
+                        let batch = document.getElementById('batch').value;
+                        let status = document.getElementById('status').value;
+                        document.location = "<?= base_url()?>"+"AdminController/print_pdf_list/"+"<?=$selectedBatch?>"+"/"+"<?=$selectedStatus?>";
+                      }
+                    </script>
+                    
+                    <div class="col-sm-2"><button class="btn btn-success mr-2" onclick="pdf()">Print</button></div>
+                  </div>
                   <div class="table-responsive">
                     <table class="table table-bordered">
                       <thead>
                         <tr>
-                          <th>
-                            Registration ID
-                          </th>
-                          <th>
-                            Name
-                          </th>
-                          <th>
-                            Gender
-                          </th>
-                          <th>
-                            Batch
-                          </th>
-                          <th>
-                            Contact
-                          </th>
+                          <th width="5%">Reg. Id</th>
+                          <th width="10%">Name</th>
+                          <th width="10%">Father's Name</th>
+                          <th width="10%">Mother's Name</th>
+                          <th width="5%">Gender</th>
+                          <th width="6%">Marital Status</th>
+                          <th width="10%">Occupation</th>
+                          <th width="10%">Designation</th>
+                          <th width="10%">Contact</th>
+                          <th width="4%">Spouse</th>
+                          <th width="4%">Child</th>
+                          <th width="4%">Other</th>
+                          <th width="6%">Amount Payable</th>
+                          <th width="6%">Amount Paid</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <?php foreach($table as $row):?>
-                          <tr> 
-                              <td class="font-weight-medium"><?=$row->regid?></td>
-                              <td class="font-weight-medium"><?=$row->name?></td>
-                              <td class="font-weight-medium"><?=$row->gender?></td>
-                              <td class="font-weight-medium"><?=$row->batch?></td>
-                              <td class="font-weight-medium"><?=$row->contact?></td>
-                          </tr>
-                        <?php endforeach;?>    
+                        <?php if(!empty($table)): ?>
+                          <?php foreach($table as $row):?>
+                            <tr> 
+                              <td width="5%"><?=$row->regid?></td>
+                              <td width="10%"><?=$row->name?></td>
+                              <td width="10%"><?=$row->father?></td>
+                              <td width="10%"><?=$row->mother?></td>
+                              <td width="5%"><?=$row->gender?></td>
+                              <td width="6%"><?=$row->mstat?></td>
+                              <td width="10%"><?=$row->occupation?></td>
+                              <td width="10%"><?=$row->designation?></td>
+                              <td width="10%"><?=$row->contact?></td>
+                              <td width="4%"><?=$row->spouse_count?></td>
+                              <td width="4%"><?=$row->child_count?></td>
+                              <td width="4%"><?=$row->other_count?></td>
+                              <td width="6%"><?=$row->total_amount?></td>
+                              <td width="6%"><?=$row->paid_amount?></td>
+                            </tr>
+                          <?php endforeach;?>   
+                        <?php endif;?>
                       </tbody>
                     </table>
                   </div>
