@@ -7,9 +7,9 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <meta name="description" content="Colorlib Templates" />
-    <meta name="author" content="Colorlib" />
-    <meta name="keywords" content="Colorlib Templates" />
+    <meta name="description" content="Saint Joseph's High School & College, Dharenda | Silver Jubilee Registration" />
+    <meta name="author" content="JDGomes" />
+    <meta name="keywords" content="SJHSC Jubilee Registration" />
 
     <!-- Title Page -->
     <title>Registration</title>

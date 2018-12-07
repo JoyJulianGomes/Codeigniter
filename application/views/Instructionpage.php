@@ -8,7 +8,7 @@
     
     
     <!-- Title Page -->
-    <title>Au Register Forms by Colorlib</title>
+    <title>Instruction</title>
 
     <!-- Icons font CSS -->
     <link
