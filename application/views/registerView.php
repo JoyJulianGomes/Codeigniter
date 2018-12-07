@@ -3,17 +3,14 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content="Saint Joseph's High School & College, Dharenda | Silver Jubilee Registration" />
     <meta name="author" content="JDGomes" />
     <meta name="keywords" content="SJHSC Jubilee Registration" />
 
     <!-- Title Page -->
     <title>Registration</title>
-
+    <link rel="icon" href="<?=base_url()?>resources/icons/school_logo_icon.png">
     <!-- Icons font CSS -->
     <link
       href="<?php echo base_url();?>vendor/mdi-font/css/material-design-iconic-font.min.css"
@@ -203,9 +200,10 @@
               </div>
               <div style="margin:20px 0px">
                 <h2 class="title" style="color:black">Participant Names</h2>
-                <p style="text-align:center">Fees: Student = 500 BDT, Spouse = 800 BDT, Child = 300 BDT</p>
+                <p style="text-align:center">Fees: Student = 500 BDT, Spouse = 800 BDT, Child = 300 BDT, Other = 500 BDT</p>
               </div>
               <div class="container">
+
                 <div class="form-row row row-space">
                   <div class="col-4"><div class="name">Name</div></div>
                   <div class="col-4"><div class="name">Relation</div></div>
@@ -214,7 +212,7 @@
 
                 <div class="table-form-row table-row table-row-space">
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="text" name="pname-1" value="<?php echo set_value('pname-1')?>" />
+                    <input class="table-input--style-5" type="text" name="pname-1" value="<?php echo set_value('pname-1')?>" placeholder="Guest Name"/>
                   </div>
                   <div class="table-input-group col-4">
                     <div class="rs-select2 js-select-simple select--no-search">
@@ -228,13 +226,13 @@
                       </div>
                   </div>
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="number" min="0" name="page-1" value="<?php echo set_value('page-1')?>"/>
+                    <input class="table-input--style-5" type="number" min="0" name="page-1" value="<?php echo set_value('page-1')?>" placeholder="Guest Age"/>
                   </div>
                 </div>
 
                 <div class="table-form-row table-row table-row-space">
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="text" name="pname-2" value="<?php echo set_value('pname-2')?>" />
+                    <input class="table-input--style-5" type="text" name="pname-2" value="<?php echo set_value('pname-2')?>" placeholder="Guest Name"/>
                   </div>
                   <div class="table-input-group col-4">
                     <div class="rs-select2 js-select-simple select--no-search">
@@ -248,13 +246,13 @@
                       </div>
                   </div>
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="number"  min="0" name="page-2" value="<?php echo set_value('page-2')?>" />
+                    <input class="table-input--style-5" type="number"  min="0" name="page-2" value="<?php echo set_value('page-2')?>" placeholder="Guest Age"/>
                   </div>
                 </div>
 
                 <div class="table-form-row table-row table-row-space">
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="text" name="pname-3" value="<?php echo set_value('pname-3')?>"/>
+                    <input class="table-input--style-5" type="text" name="pname-3" value="<?php echo set_value('pname-3')?>" placeholder="Guest Name"/>
                   </div>
                   <div class="table-input-group col-4">
                       <div class="rs-select2 js-select-simple select--no-search">
@@ -268,13 +266,13 @@
                       </div>
                   </div>
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="number"  min="0" name="page-3" value="<?php echo set_value('page-3')?>"/>
+                    <input class="table-input--style-5" type="number"  min="0" name="page-3" value="<?php echo set_value('page-3')?>" placeholder="Guest Age"/>
                   </div>
                 </div>
 
                 <div class="table-form-row table-row table-row-space">
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="text" name="pname-4" value="<?php echo set_value('pname-4')?>" />
+                    <input class="table-input--style-5" type="text" name="pname-4" value="<?php echo set_value('pname-4')?>" placeholder="Guest Name"/>
                   </div>
                   <div class="table-input-group col-4">
                       <div class="rs-select2 js-select-simple select--no-search">
@@ -288,13 +286,13 @@
                       </div>
                   </div>
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="number" min="0" name="page-4" value="<?php echo set_value('page-4')?>" />
+                    <input class="table-input--style-5" type="number" min="0" name="page-4" value="<?php echo set_value('page-4')?>" placeholder="Guest Age"/>
                   </div>
                 </div>
 
                 <div class="table-form-row table-row table-row-space">
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="text" name="pname-5" value="<?php echo set_value('pname-5')?>"/>
+                    <input class="table-input--style-5" type="text" name="pname-5" value="<?php echo set_value('pname-5')?>" placeholder="Guest Name"/>
                   </div>
                   <div class="table-input-group col-4">
                       <div class="rs-select2 js-select-simple select--no-search">
@@ -308,10 +306,9 @@
                       </div>
                   </div>
                   <div class="table-input-group col-4">
-                    <input class="table-input--style-5" type="number" min="0" name="page-5" value="<?php echo set_value('page-5')?>" />
+                    <input class="table-input--style-5" type="number" min="0" name="page-5" value="<?php echo set_value('page-5')?>" placeholder="Guest Age"/>
                   </div>
                 </div>
-                
             </div>
             
             <div>

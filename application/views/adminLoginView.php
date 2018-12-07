@@ -5,7 +5,13 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title></title>
+  <meta name="description" content="Saint Joseph's High School & College, Dharenda | Silver Jubilee Registration" />
+  <meta name="author" content="JDGomes" />
+  <meta name="keywords" content="SJHSC Jubilee Registration" />
+
+  <title>Admin Login</title>
+  <link rel="icon" href="<?=base_url()?>resources/icons/school_logo_icon.png">
+  
   <!-- plugins:css -->
   <link rel="stylesheet" href="<?php echo base_url();?>vendor/StarAdmin/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="<?php echo base_url();?>vendor/StarAdmin/vendors/css/vendor.bundle.base.css">

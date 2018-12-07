@@ -5,7 +5,13 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Admin Panel</title>
+  <meta name="description" content="Saint Joseph's High School & College, Dharenda | Silver Jubilee Registration" />
+  <meta name="author" content="JDGomes" />
+  <meta name="keywords" content="SJHSC Jubilee Registration" />
+
+  <title>View & Print</title>
+  <link rel="icon" href="<?=base_url()?>resources/icons/school_logo_icon.png">
+  
   <!-- plugins:css -->
   <link rel="stylesheet" href="<?php echo base_url();?>vendor/StarAdmin/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -45,7 +51,7 @@
             <?php echo anchor('AdminController/ValidateApplicants', '<i class="menu-icon fa fa-check-square"></i><span class="menu-title">Validate Applicants</span>', 'class="nav-link"');?>
           </li>
           <li class="nav-item">
-            <?php echo anchor('AdminController/PrintApplicants', '<i class="menu-icon fa fa-print"></i><span class="menu-title">Print</span>', 'class="nav-link"');?>
+            <?php echo anchor('AdminController/PrintApplicants', '<i class="menu-icon fa fa-print"></i><span class="menu-title">View & Print</span>', 'class="nav-link"');?>
           </li>
           <li class="nav-item">
             <?php echo anchor('AdminController/addRepresentative', '<i class="menu-icon fa fa-plus-square"></i><span class="menu-title">Add Batch & Representative</span>', 'class="nav-link"');?>
@@ -172,10 +178,7 @@
               </div>
             </div>
           </div>
-
-          <div class="row">
-            <button type="button" class="btn btn-success btn-fw">Print</button>
-          </div>  
+ 
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->

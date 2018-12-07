@@ -5,11 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Payment Instruction</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+    <meta name="description" content="Saint Joseph's High School & College, Dharenda | Silver Jubilee Registration" />
+    <meta name="author" content="JDGomes" />
+    <meta name="keywords" content="SJHSC Jubilee Registration" />
     
     <!-- Title Page -->
     <title>Instruction</title>
-
+    <link rel="icon" href="<?=base_url()?>resources/icons/school_logo_icon.png">
+    
     <!-- Icons font CSS -->
     <link
       href="<?php echo base_url();?>vendor/mdi-font/css/material-design-iconic-font.min.css"

@@ -110,7 +110,7 @@ class Register extends CI_Controller
         }
     }
 
-    public function loadpage()
+    private function loadpage()
     {
         $this->load->helper(array('form', 'url'));
         $this->load->model("BatchModel");
