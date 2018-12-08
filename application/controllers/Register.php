@@ -43,7 +43,7 @@ class Register extends CI_Controller
         $this->form_validation->set_error_delimiters('<p class="errormsg">', '</p>');
         $this->form_validation->set_rules('batch', 'Batch Year', 'required');
         $this->form_validation->set_rules('name', 'Name', 'required');
-        if(!isset($_FILES['photo'])){
+        if(isset($_FILES['photo'])){
             $this->form_validation->set_rules('photo', 'Photo', 'callback_photo_check');
         }
         $this->form_validation->set_rules('father', 'Father\'s  Name', 'required');

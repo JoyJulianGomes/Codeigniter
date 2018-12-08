@@ -102,7 +102,7 @@
                       </span>
                     </span>
                     <?php echo form_error('photo'); ?>
-                    <input type="text" class="input--style-5" readonly />
+                    <input type="text" class="input--style-5" readonly placeholder="300x300 pixels maximum 200KB" />
                   </div>
                 </div>
               </div>
@@ -200,7 +200,7 @@
               </div>
               <div style="margin:20px 0px">
                 <h2 class="title" style="color:black">Participant Names</h2>
-                <p style="text-align:center">Fees: Student = 500 BDT, Spouse = 800 BDT, Child = 300 BDT, Other = 500 BDT</p>
+                <p style="text-align:center">Fees: Student = 500 BDT, Spouse = 300 BDT, Child = 300 BDT, Other = 500 BDT</p>
               </div>
               <div class="container">
 
