@@ -53,10 +53,25 @@
                 <div class="card-heading">
                     <h2 class="title">Information Recorded</h2>
                 </div>
-                <div class="card-body">
-                    <div style="margin:20px 0px">
+                <div class="card-body" style="padding-top:0px">
+                    <div>
                         <h2 class="title" style="color:red">Your Registration ID: <?=$reg_id?></h2>
                     </div>
+
+                    <div class="col-sm-6" style="margin:20px 0px;display:flex;justify-content:center;">
+                        <table style="width:100%">
+                            <tr>
+                                <td>
+                                    Name: <?=$name?><br>
+                                    Batch: <?=$batch?><br>
+                                </td>
+                                <td>
+                                    <img width="100" height="100" src="<?=base_url()?>uploads/<?=$photo?>" alt="Registrant Image">
+                                </td>
+                            </tr>                          
+                        </table>
+                    </div>
+
                     <div style="margin:20px 0px">
                         <h2 class="title" style="color:black">Cost</h2>
                     </div>
@@ -127,12 +142,15 @@
                                     by bKash 
                                 </li>
                                 <li>Send a SMS to the bKash number mentioning the trasaction ID in the following format:<br>
-                                        <p style="color:red">RegistrationID: <?php echo $reg_id;?> TrxID: BFH******</p>
+                                        <p style="color:red">RegistrationID: <?php echo $reg_id;?> TrxID: *********</p>
                                 </li>
                                 <li>A confirmation SMS will be sent to your contact number</li>
                             </ol>
-                        </p>     
-                    </div>           
+                        </p>
+                        <p style="margin:20px 0px;display:flex;justify-content:center;">
+                            <button class="btn btn--radius-2 btn--blue btn-file" onclick="window.print();">Print</button>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -97,6 +97,9 @@ class Register extends CI_Controller
             ];
 
             $instruction_data['reg_id'] = $this->Participant->add_participant($data_from_form);
+            $instruction_data['name'] = $this->input->post('name');
+            $instruction_data['photo'] = $this->upload->data()['file_name'];
+            $instruction_data['batch'] = $this->input->post('batch');
             $instruction_data['student'] = ['count'=>1, 'rate'=>$rates['student'], 'fee'=>$fees['student']];
             $instruction_data['spouse'] = ['count'=>$guest_info['spouse_count'], 'rate'=>$rates['spouse'], 'fee'=>$fees['spouse']];
             $instruction_data['child'] = ['count'=>$guest_info['child_count'], 'rate'=>$rates['child'], 'fee'=>$fees['child']];
@@ -128,7 +131,10 @@ class Register extends CI_Controller
         $fees = $this->calculate_fee($guest_info);
 
         $success['reg_id']=100;
-
+        $success['name']=100;
+        $success['batch']=100;
+        $success['photo']="Prodip 300.jpg";
+        
         $success['student'] = ['count'=>1, 'rate'=>$rates['student'], 'fee'=>$fees['student']];
         $success['spouse'] = ['count'=>$guest_info['spouse_count'], 'rate'=>$rates['spouse'], 'fee'=>$fees['spouse']];
         $success['child'] = ['count'=>$guest_info['child_count'], 'rate'=>$rates['child'], 'fee'=>$fees['child']];
