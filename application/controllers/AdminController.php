@@ -177,12 +177,26 @@ class AdminController extends CI_Controller
                 $this->form_validation->set_rules('rep_phone', 'Add amount', 'callback_contact_check');
             }
             if ($this->form_validation->run()) {
-                $insertion_data = [
-                    "batch" => $this->input->post('batch'),
-                    "rep_name" => ($rep_name = $this->input->post('rep_name'))?$rep_name:'',
-                    "rep_phone" => ($rep_phone = $this->input->post('rep_phone'))?$rep_phone:'',
-                ];
-                $status = $this->BatchModel->add($insertion_data);
+                if($this->BatchModel->batchexists($this->input->post('batch'))){
+                    //batch esxists?
+                    $batch_rep_info = $this->BatchModel->getRepNameCon($this->input->post('batch'));
+                    $update_data = [
+                        "rep_name" => ($rep_name = $this->input->post('rep_name'))?$rep_name:$batch_rep_info->rep_name,
+                        "rep_phone" => ($rep_phone = $this->input->post('rep_phone'))?$rep_phone:$batch_rep_info->rep_phone,
+                    ];
+                    $this->BatchModel->update_rep($this->input->post('batch'), $update_data);
+                
+                } else{
+                    //Batch does not exist?
+                    $insertion_data = [
+                        "batch" => $this->input->post('batch'),
+                        "rep_name" => ($rep_name = $this->input->post('rep_name'))?$rep_name:'',
+                        "rep_phone" => ($rep_phone = $this->input->post('rep_phone'))?$rep_phone:'',
+                    ];
+                    $status = $this->BatchModel->add($insertion_data);
+
+                }
+                
                 $data['representatives'] = $this->BatchModel->getBatchInfo();
                 $this->load->view('addRepresentativeView', $data);
             } else {

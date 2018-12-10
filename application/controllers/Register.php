@@ -100,6 +100,8 @@ class Register extends CI_Controller
             $instruction_data['name'] = $this->input->post('name');
             $instruction_data['photo'] = $this->upload->data()['file_name'];
             $instruction_data['batch'] = $this->input->post('batch');
+            $batch_info = $this->BatchModel->getRepNameCon($this->input->post('batch'));
+            $instruction_data['batch_info'] = ["repname" => $batch_info->repname, 'contact' => $batch_info->rep_phone];
             $instruction_data['student'] = ['count'=>1, 'rate'=>$rates['student'], 'fee'=>$fees['student']];
             $instruction_data['spouse'] = ['count'=>$guest_info['spouse_count'], 'rate'=>$rates['spouse'], 'fee'=>$fees['spouse']];
             $instruction_data['child'] = ['count'=>$guest_info['child_count'], 'rate'=>$rates['child'], 'fee'=>$fees['child']];
@@ -132,7 +134,9 @@ class Register extends CI_Controller
 
         $success['reg_id']=100;
         $success['name']=100;
-        $success['batch']=100;
+        $success['batch']=2012;
+        $batch_info = $this->BatchModel->getRepNameCon($success['batch']);
+        $success['batch_info'] = ["repname" => $batch_info->rep_name, 'contact' => $batch_info->rep_phone];
         $success['photo']="Prodip 300.jpg";
         
         $success['student'] = ['count'=>1, 'rate'=>$rates['student'], 'fee'=>$fees['student']];

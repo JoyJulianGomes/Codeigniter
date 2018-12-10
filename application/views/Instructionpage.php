@@ -64,6 +64,9 @@
                                 <td>
                                     Name: <?=$name?><br>
                                     Batch: <?=$batch?><br>
+                                    <br>
+                                    Batch Representative: <?=$batch_info['repname']?><br>
+                                    Representative Contact: <?=$batch_info['contact']?><br>
                                 </td>
                                 <td>
                                     <img width="100" height="100" src="<?=base_url()?>uploads/<?=$photo?>" alt="Registrant Image">
